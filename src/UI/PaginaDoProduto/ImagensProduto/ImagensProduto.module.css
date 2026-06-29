@@ -1,0 +1,53 @@
+/* PADRÃO (DESKTOP) */
+.ImagensProduto {
+  --imagensProdutoGap: 10px;
+  --imagensProdutoWidth: 390px;
+  --smallImageWidth: calc(var(--imagensProdutoWidth) / 4);
+
+  width: fit-content;
+
+  transform-origin: top left;
+
+  display: grid;
+  grid-area: imagens;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "carousel"
+    ".";
+  gap: var(--imagensProdutoGap);
+}
+
+.Carrossel {
+  width: calc(var(--imagensProdutoWidth) + 3 * var(--imagensProdutoGap));
+  aspect-ratio: 1;
+
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+
+  grid-area: carousel;
+
+  & > div {
+    margin-block: auto;
+  }
+}
+
+.SmallImages {
+  width: var(--imagensProdutoWidth);
+
+  display: grid;
+  grid-template-columns: repeat(4, var(--smallImageWidth));
+  gap: inherit;
+}
+
+/* MOBILE */
+@media only screen and (max-width: 494px) {
+  .ImagensProduto {
+    --imagensProdutoWidth: 300px;
+
+    img:not(.SmallImages img) {
+      width: 200px;
+    }
+  }
+}

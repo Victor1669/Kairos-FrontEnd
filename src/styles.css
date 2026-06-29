@@ -1,0 +1,74 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #f3efe8;
+  --header-height: 85px;
+
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--primary-color);
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+#root,
+main {
+  display: grid;
+}
+
+#root {
+  overflow: hidden;
+}
+
+header {
+  height: var(--header-height);
+}
+
+main {
+  height: calc(100dvh - var(--header-height));
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-top: 20px;
+
+  gap: 30px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.default-button {
+  color: #fff;
+  background-color: #000;
+
+  border-radius: 15px;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.elemento-com-imagem {
+  width: 90dvw;
+  margin-inline: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

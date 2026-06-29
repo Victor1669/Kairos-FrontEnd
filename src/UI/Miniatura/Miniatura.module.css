@@ -1,0 +1,18 @@
+.Miniatura {
+  background-color: #d9d9d9;
+  width: var(--smallImageWidth);
+
+  padding: 20px;
+  border-radius: 15px;
+
+  display: grid;
+  place-items: center;
+
+  &:has(img) {
+    cursor: pointer;
+  }
+
+  img {
+    width: 100%;
+  }
+}

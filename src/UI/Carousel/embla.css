@@ -1,0 +1,61 @@
+.embla {
+  max-width: 85dvw;
+
+  margin: auto;
+
+  display: flex;
+  gap: var(--slide-spacing);
+
+  --slide-height: 19rem;
+  --slide-spacing: 20px;
+  --slide-size: 20%;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+
+  gap: var(--slide-spacing);
+}
+
+.embla__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+}
+
+.embla__controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+}
+
+.embla__button {
+  all: unset;
+  background-color: white;
+
+  margin-block: auto;
+  padding: 5px;
+  border: 1px solid black;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  &:hover {
+    background-color: #dadada;
+  }
+}
+
+.embla__selected-snap-display {
+  justify-self: flex-end;
+  align-self: center;
+  color: var(--text-low-contrast);
+  font-weight: 600;
+}

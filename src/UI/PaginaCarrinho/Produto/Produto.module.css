@@ -1,0 +1,121 @@
+.Produto {
+  place-items: center;
+
+  border-radius: 15px;
+  border: 1px solid black;
+  padding: 20px;
+  margin-bottom: 15px;
+
+  text-align: center;
+
+  font-size: 13px;
+}
+
+.ImagemNome {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 150px;
+    margin-right: 10px;
+  }
+}
+
+.PrecoProduto {
+  grid-area: precoIndividual;
+}
+
+.CelulaQuantidade {
+  grid-area: qtd;
+}
+.ContadorQuantidade {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  font-size: 20px;
+
+  button {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+  }
+}
+
+.BtnRemover {
+  button {
+    padding: 10px;
+    border-radius: 15px;
+
+    &:hover {
+      background-color: #dadada;
+    }
+  }
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1175px) {
+  .Produto {
+    span {
+      display: none;
+      align-items: center;
+    }
+  }
+}
+
+/* PRIMEIRA QUEBRA NA LINHA */
+@media only screen and (max-width: 1175px) {
+  .Produto {
+    display: grid;
+    grid-template-columns: 100px repeat(2, 1fr);
+    grid-template-areas:
+      ". imagemNome ."
+      "qtd precoIndividual precoTotal"
+      "btnRemover btnRemover btnRemover";
+    gap: 10px;
+
+    td {
+      &:first-child {
+        grid-area: imagemNome;
+      }
+    }
+  }
+
+  .CelulaQuantidade {
+    display: grid;
+    gap: 15px;
+
+    margin-block: 15px;
+  }
+  .PrecoTotal {
+    grid-area: precoTotal;
+  }
+  .BtnRemover {
+    grid-area: btnRemover;
+  }
+}
+
+/* SEGUNDA QUEBRA NA LINHA */
+@media only screen and (max-width: 1040px) {
+  .ImagemNome {
+    flex-direction: column;
+    img {
+      margin-right: 0;
+    }
+  }
+
+  .ContadorQuantidade {
+    button {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+/* MOBILE */
+@media only screen and (max-width: 891px) {
+  .Produto {
+    font-size: 13px;
+  }
+}

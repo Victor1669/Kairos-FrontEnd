@@ -1,0 +1,79 @@
+:root {
+  --cartFormHeight: 85dvh;
+}
+
+/* PADRÃO */
+.PaginaCarrinho {
+  width: 95%;
+
+  margin-inline: auto;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  grid-template-areas: "table form";
+  gap: 20px;
+}
+
+.FormSection {
+  grid-area: form;
+  height: var(--cartFormHeight);
+}
+
+.NoProducts {
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  height: 50dvh;
+
+  a {
+    margin-top: 20px;
+    padding: 10px 15px;
+  }
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 1175px) {
+  .PaginaCarrinho {
+    grid-template-columns: minmax(661px, auto) 1fr 450px 1fr;
+    grid-template-areas: "table . form .";
+  }
+}
+
+/* PRIMEIRA QUEBRA NA LINHA */
+@media only screen and (max-width: 1175px) {
+  .TableSection {
+    grid-area: table;
+    margin-inline: auto;
+
+    thead {
+      display: none;
+    }
+  }
+}
+
+/* SEGUNDA QUEBRA DE LINHA */
+@media only screen and (max-width: 970px) {
+  .PaginaCarrinho {
+    grid-template-areas: "form" "table";
+    grid-template-rows: var(--cartFormHeight) 1fr;
+    grid-template-columns: 1fr;
+  }
+  .FormSection {
+    width: 470px;
+    margin-inline: auto;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  :root {
+    --cartFormHeight: 75dvh;
+  }
+  .FormSection {
+    width: 370px;
+    font-size: 11px;
+  }
+}

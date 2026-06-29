@@ -1,0 +1,89 @@
+.CarrinhoForm {
+  background-color: #d9d9d9;
+
+  border-radius: 15px;
+  padding: 35px 25px;
+
+  height: var(--cartFormHeight);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  button[type="submit"] {
+    grid-auto-flow: column;
+    gap: 40px;
+
+    padding: 15px;
+
+    img {
+      width: 25px;
+    }
+  }
+}
+
+.FreteContainer {
+  display: grid;
+
+  gap: 20px;
+
+  span {
+    gap: 15px;
+
+    &:first-child {
+      display: flex;
+      justify-content: start;
+    }
+
+    &:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        width: 100%;
+        input {
+          width: inherit;
+        }
+      }
+    }
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 10px;
+    place-self: center;
+
+    &::placeholder {
+      font-weight: bold;
+      color: #000;
+    }
+  }
+}
+
+.FreteButton {
+  padding: 10px;
+}
+
+.ComoFunciona {
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 20px;
+
+  display: grid;
+  gap: 15px;
+
+  span {
+    justify-content: start;
+    gap: 30px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}

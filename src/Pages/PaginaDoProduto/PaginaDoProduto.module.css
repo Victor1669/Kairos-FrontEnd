@@ -1,0 +1,38 @@
+.PaginaDoProduto {
+  display: grid;
+  grid-template-areas:
+    "imagens . descricao"
+    "avaliar . avaliacoes";
+  grid-template-columns: 420px 1fr max-content;
+  gap: 40px 20px;
+
+  margin-inline: 60px;
+}
+
+.SecaoEscreverAvaliacao {
+  grid-area: avaliar;
+  display: grid;
+  gap: 40px;
+}
+
+.SecaoAvaliacoes {
+  grid-area: avaliacoes;
+  width: 90%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .PaginaDoProduto {
+    grid-template-areas:
+      "imagens"
+      "descricao"
+      "avaliar"
+      "avaliacoes";
+    justify-content: center;
+    justify-items: center;
+    margin-inline: 0px;
+  }
+
+  .SecaoEscreverAvaliacao {
+    place-items: center;
+  }
+}

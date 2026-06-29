@@ -1,0 +1,16 @@
+/* MOBILE */
+@media only screen and (max-width: 434px) {
+  .SobreNos {
+    background-image: url("@Assets/layout/sobre-nos.png");
+    aspect-ratio: 1;
+  }
+}
+
+/* TABLET/DESKTOP */
+@media only screen and (min-width: 435px) {
+  .SobreNos {
+    background-image: url("@Assets/layout/segunda-imagem-desktop.png");
+    aspect-ratio: 763 / 504;
+    max-width: 763px;
+  }
+}

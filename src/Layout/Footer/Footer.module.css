@@ -1,0 +1,40 @@
+.Footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 25px;
+  padding-bottom: 25px;
+}
+
+.LogoContainer {
+  width: 100dvw;
+  padding-inline: 10px;
+
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+
+  span {
+    height: 2px;
+    background-color: #b08a4a;
+  }
+}
+
+.InstagramIcon {
+  background-color: #2d2d2d;
+  border-radius: 50%;
+
+  width: 50px;
+  height: 50px;
+
+  display: grid;
+  place-items: center;
+
+  img {
+    width: 50%;
+    height: 50%;
+  }
+}

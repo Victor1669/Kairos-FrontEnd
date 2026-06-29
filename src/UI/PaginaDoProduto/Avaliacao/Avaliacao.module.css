@@ -1,0 +1,29 @@
+.Avaliacao {
+  background-color: #e9e9e9;
+  display: grid;
+  gap: 15px;
+
+  border: 1px solid black;
+  padding: 15px;
+  border-radius: 15px;
+
+  span {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(187, 187, 187);
+  }
+}
+
+.starContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 7px;
+  gap: 10px;
+}
+
+.Usuario {
+  display: flex;
+  gap: 20px;
+}

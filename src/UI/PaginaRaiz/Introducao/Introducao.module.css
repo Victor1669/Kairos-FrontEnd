@@ -1,0 +1,28 @@
+.ImagemCamisa {
+  display: none;
+}
+
+/* MOBILE */
+@media only screen and (max-width: 434px) {
+  .Introducao {
+    min-width: 345px;
+    background-image: url("@Assets/layout/introducao-mobile.png");
+    aspect-ratio: 353 / 316;
+  }
+
+  .ImagemCamisa {
+    display: block;
+    width: 345px;
+    background-image: url("@Assets/layout/produtos-mobile.png");
+    aspect-ratio: 353 / 316;
+  }
+}
+
+/* TABLET/DESKTOP */
+@media only screen and (min-width: 435px) {
+  .Introducao {
+    max-width: 784px;
+    background-image: url("@Assets/layout/introducao-desktop.png");
+    aspect-ratio: 784 / 440;
+  }
+}

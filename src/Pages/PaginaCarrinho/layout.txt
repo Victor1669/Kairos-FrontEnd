@@ -1,0 +1,18 @@
+O layout foi desenhado para ser funcional e adaptável, alternando a disposição dos elementos conforme o tamanho da tela.
+
+Organização Visual
+Desktop (Telas largas)
+O layout exibe o conteúdo lado a lado, priorizando a tabela de itens.
+| Tabela de Produtos | Formulário |
+
+Mobile (Telas estreitas)
+O layout organiza o conteúdo em bloco único, empilhando os elementos.
+— Formulário —
+— Tabela de Produtos —
+
+Resumo do Comportamento
+Em telas grandes: A tela é dividida em duas colunas fixas. O formulário de fechamento fica posicionado à direita da tabela, mantendo um espaçamento constante entre ambos.
+
+Em telas menores: O cabeçalho da tabela é removido para economizar espaço e melhorar a leitura.
+
+Em dispositivos móveis: A disposição muda de colunas para linhas. O formulário vai para o topo com uma altura de destaque, e a tabela de produtos é movida para baixo, ocupando o restante do espaço vertical.

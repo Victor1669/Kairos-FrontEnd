@@ -1,0 +1,11 @@
+.DadosAvaliacao {
+  display: grid;
+  gap: 15px;
+}
+
+.StarRatingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}

@@ -1,0 +1,17 @@
+.Produto {
+  max-width: calc(100dvw / 3);
+  min-width: 230px;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  img {
+    width: 100%;
+  }
+
+  p {
+    height: 2rem;
+    margin-block: 1rem;
+  }
+}
