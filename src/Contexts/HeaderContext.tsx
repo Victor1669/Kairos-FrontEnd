@@ -6,7 +6,7 @@ interface HeaderContextValues {
   menuRef: React.RefObject<HTMLElement | null>;
   showMenu: boolean;
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  close: Function;
+  close(): void;
 }
 
 const HeaderContext = createContext<HeaderContextValues | undefined>(undefined);
@@ -20,7 +20,7 @@ export function HeaderContextProvider({
 
   const close = () => setShowMenu(false);
 
-  const menuRef = useOutsideClick(close, true);
+  const menuRef = useOutsideClick({ handler: close, listenCapturing: true });
 
   useEffect(() => {
     const main = document.getElementsByTagName("main").item(0);

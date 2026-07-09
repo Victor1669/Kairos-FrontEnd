@@ -1,8 +1,11 @@
-export type UserType = {
+export interface ContentUserType {
   id: number;
-  name: string;
   email: string;
   role: "user" | "admin";
+}
+
+export interface CompleteUserType extends ContentUserType {
+  name: string;
   phone: string;
   cpf: string;
-};
+}

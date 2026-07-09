@@ -1,14 +1,14 @@
 .Produto {
-  place-items: center;
-
   border-radius: 15px;
-  border: 1px solid black;
-  padding: 20px;
-  margin-bottom: 15px;
+  padding-block: 5px;
 
   text-align: center;
 
   font-size: 13px;
+
+  td {
+    padding-inline: 5px;
+  }
 }
 
 .ImagemNome {
@@ -28,10 +28,10 @@
 .CelulaQuantidade {
   grid-area: qtd;
 }
+
 .ContadorQuantidade {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 15px;
 
   font-size: 20px;
@@ -39,6 +39,7 @@
   button {
     width: 35px;
     height: 35px;
+    padding: 0;
     cursor: pointer;
   }
 }
@@ -47,10 +48,6 @@
   button {
     padding: 10px;
     border-radius: 15px;
-
-    &:hover {
-      background-color: #dadada;
-    }
   }
 }
 
@@ -68,17 +65,26 @@
 @media only screen and (max-width: 1175px) {
   .Produto {
     display: grid;
-    grid-template-columns: 100px repeat(2, 1fr);
+    grid-template-columns: 120px 1fr 100px;
     grid-template-areas:
       ". imagemNome ."
       "qtd precoIndividual precoTotal"
       "btnRemover btnRemover btnRemover";
     gap: 10px;
 
+    padding: 10px;
+    border: 1px solid black;
+
     td {
       &:first-child {
         grid-area: imagemNome;
       }
+    }
+  }
+
+  .ImagemNome {
+    img {
+      max-width: 140px;
     }
   }
 

@@ -1,4 +1,4 @@
-import type { RegisterOptions, FieldPath } from "react-hook-form";
+import type { RegisterOptions, FieldPath, FieldValues } from "react-hook-form";
 import { isValidCPF } from "@Utils/isValidCPF";
 import { isValidEmail } from "@Utils/isValidEmail";
 
@@ -10,8 +10,7 @@ interface FormFields {
   cpf: string;
 }
 
-// Tipo correto para React Hook Form
-type ValidationRules<T extends Record<string, any> = FormFields> = {
+type ValidationRules<T extends FieldValues = FormFields> = {
   [K in FieldPath<T>]?: RegisterOptions<T, K>;
 };
 
@@ -50,9 +49,6 @@ export const FieldsValidation: ValidationRules = {
       message: "A senha deve ter no mínimo 8 caracteres",
     },
     validate: {
-      possuiCaractereEspecial: (valor: string) =>
-        /[!@#$%&*<>]/.test(valor) ||
-        "A senha deve conter ao menos um caractere especial",
       possuiLetraMinusculaOuMaiuscula: (valor: string) =>
         /(?=.*[a-z])(?=.*[A-Z])/.test(valor) ||
         "A senha deve conter letras minúsculas e maiúsculas",

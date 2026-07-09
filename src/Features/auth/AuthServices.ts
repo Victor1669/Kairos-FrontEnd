@@ -1,11 +1,11 @@
-import { useFetch } from "@Hooks/useFetch";
+import { fetchApi } from "@Utils/fetchApi";
 
-import type { UserType } from "./UserType";
+import type { CompleteUserType } from "./UserType";
 
-type RegisterUserApiBody = Omit<UserType, "id">;
+type RegisterUserApiBody = Omit<CompleteUserType, "id" | "role">;
 
 async function registerUserApi(body: RegisterUserApiBody) {
-  return await useFetch<RegisterUserApiBody>({
+  return await fetchApi<RegisterUserApiBody>({
     method: "post",
     route: "auth/register",
     body,
@@ -20,12 +20,12 @@ interface UserLoginApiBody {
 interface UserLoginApiReturn {
   data: {
     token: string;
-    user: Omit<UserType, "cpf" | "phone">;
+    user: Omit<CompleteUserType, "cpf" | "phone">;
   };
 }
 
 async function userLoginApi(body: UserLoginApiBody) {
-  return await useFetch<UserLoginApiBody, UserLoginApiReturn>({
+  return await fetchApi<UserLoginApiBody, UserLoginApiReturn>({
     route: "auth/login",
     method: "post",
     body,

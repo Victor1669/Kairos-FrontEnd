@@ -1,7 +1,7 @@
 /* PADRÃO (DESKTOP) */
 .ImagensProduto {
   --imagensProdutoGap: 10px;
-  --imagensProdutoWidth: 390px;
+  --imagensProdutoWidth: 430px;
   --smallImageWidth: calc(var(--imagensProdutoWidth) / 4);
 
   width: fit-content;

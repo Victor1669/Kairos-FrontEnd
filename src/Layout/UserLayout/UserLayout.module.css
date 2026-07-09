@@ -27,6 +27,7 @@
   .UserLayout {
     padding: 0;
     overflow: auto;
+    padding: 20px 20px 15vh;
 
     align-items: start;
   }

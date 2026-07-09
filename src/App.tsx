@@ -9,18 +9,22 @@ import { useCartContext } from "@Cart/useCartContext";
 import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
 import ContentLayout from "./Layout/ContentLayout";
+import UserLayout from "./Layout/UserLayout/UserLayout";
 
 import PaginaDoProduto from "./Pages/PaginaDoProduto/PaginaDoProduto";
 import PaginaRaiz from "./Pages/PaginaRaiz";
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
+
 import PaginaLogin, {
   action as loginAction,
 } from "./Pages/PaginaLogin/PaginaLogin";
+import PaginaCadastro, {
+  action as registerAction,
+} from "./Pages/PaginaCadastro/PaginaCadastro";
 
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
-import UserLayout from "./Layout/UserLayout/UserLayout";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <Navigate to="/v1" replace />,
@@ -42,7 +46,7 @@ const router = createBrowserRouter([
     element: <UserLayout />,
     children: [
       { path: "login", element: <PaginaLogin />, action: loginAction },
-      { path: "signup", element: <></> },
+      { path: "signup", element: <PaginaCadastro />, action: registerAction },
     ],
   },
 ]);

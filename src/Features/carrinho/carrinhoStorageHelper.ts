@@ -2,7 +2,7 @@ import type { ProdutoType } from "./CarrinhoType";
 
 const KEY_NAME = "CARRINHO";
 
-function validarProdutos(produtos: any): ProdutoType[] {
+function validarProdutos(produtos: ProdutoType[]): ProdutoType[] {
   return Array.isArray(produtos) ? produtos : [];
 }
 

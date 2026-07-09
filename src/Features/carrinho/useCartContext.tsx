@@ -10,11 +10,11 @@ import {
 import type { AvaliacaoType, ProdutoType } from "./CarrinhoType";
 
 interface CartContextValues {
-  adicionarProdutoAoCarrinho: Function;
-  removerProdutoDoCarrinho: Function;
-  aumentarQtdItemIndividual: Function;
-  diminuirQtdItemIndividual: Function;
-  adicionarAvaliacaoAoProduto: Function;
+  adicionarProdutoAoCarrinho(produto: ProdutoType): void;
+  removerProdutoDoCarrinho(produto: ProdutoType): void;
+  aumentarQtdItemIndividual(produto: ProdutoType): void;
+  diminuirQtdItemIndividual(produto: ProdutoType): void;
+  adicionarAvaliacaoAoProduto(id: number, avaliacao: AvaliacaoType): void;
   produtosNoCarrinho: ProdutoType[];
   calcularValorTotal: () => number;
   pegarProdutoPeloId: (id: number) => ProdutoType | undefined;

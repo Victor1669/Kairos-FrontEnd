@@ -12,6 +12,7 @@ import Styles from "./CarrinhoForm.module.css";
 import CaminhaoIcon from "@Assets/icons/caminhao.png";
 import SacolaIcon from "@Assets/icons/sacola.png";
 import InfoIcon from "@Assets/icons/info.png";
+import { Button } from "react-bootstrap";
 
 const FormOptions = { defaultValues: { cep: "" } };
 
@@ -75,9 +76,12 @@ export default function CarrinhoForm() {
         </span>
         <span>
           <Field placeHolder="Digite seu CEP" name="cep" type="text" />
-          <button className={`${Styles.FreteButton} default-button`}>
+          <Button
+            variant="dark"
+            className={`${Styles.FreteButton} btn btn-dark`}
+          >
             Calcular
-          </button>
+          </Button>
         </span>
       </div>
 
@@ -90,10 +94,15 @@ export default function CarrinhoForm() {
         <a href="#">Saiba mais</a>
       </div>
 
-      <button type="submit" onClick={abrirWhatsapp} className="default-button">
+      <Button
+        variant="dark"
+        type="submit"
+        onClick={abrirWhatsapp}
+        className="default-button"
+      >
         <img src={SacolaIcon} />
         <b>Finalizar pedido</b>
-      </button>
+      </Button>
     </Form>
   );
 }

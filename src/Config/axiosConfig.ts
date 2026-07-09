@@ -1,4 +1,7 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+
+import { USER_TOKEN_KAIROS } from "@Utils/Storage";
 
 const api = axios.create({
   baseURL: "http://localhost:3000",
@@ -7,8 +10,8 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+api.interceptors.request.use(async (config) => {
+  const token = await USER_TOKEN_KAIROS.get();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -16,8 +19,13 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    toast.success(response.data.message);
+    return response;
+  },
   async (error) => {
+    toast.error(error.response.data.message);
+
     if (error.response?.status === 401) {
       // CASO DE ACESSO INVÁLIDO
     }

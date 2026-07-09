@@ -46,17 +46,6 @@ button {
   cursor: pointer;
 }
 
-.default-button {
-  color: #fff;
-  background-color: #000;
-
-  border-radius: 15px;
-
-  display: grid;
-  align-items: center;
-  justify-content: center;
-}
-
 li {
   list-style-type: none;
 }
@@ -66,10 +55,19 @@ a {
   text-decoration: none;
 }
 
+/* CLASSES */
 .elemento-com-imagem {
   width: 90dvw;
   margin-inline: auto;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+/* BOOTSTRAP */
+ul {
+  padding-left: 0 !important;
+}
+p {
+  margin-bottom: 0 !important;
 }

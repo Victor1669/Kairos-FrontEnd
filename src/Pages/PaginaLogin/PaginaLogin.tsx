@@ -1,9 +1,10 @@
-import { type ActionFunctionArgs, Link, redirect } from "react-router-dom";
+import { type ActionFunctionArgs, Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 import { userLoginApi } from "@Auth/AuthServices";
 
-import { JWTStoreItem } from "@Utils/StorageItem";
+import { router } from "../../App";
+import { USER_TOKEN_KAIROS } from "@Utils/Storage";
 
 import { createForm } from "@UI/Form/Form";
 import Logo from "@UI/Logo";
@@ -63,25 +64,19 @@ export default function PaginaLogin() {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const dataObj: any = Object.fromEntries(formData);
+  const dataObj: unknown = Object.fromEntries(formData);
 
-  try {
-    const {
-      data: {
-        message,
-        data: { token, user },
-      },
-    } = await userLoginApi(dataObj);
+  const { responseData, success } = await userLoginApi(dataObj as FormFields);
 
-    console.log(message, user);
+  if (success) {
+    const { data } = responseData;
 
-    if (token.length) {
-      const USER_TOKEN_KAIROS = new JWTStoreItem("USER_TOKEN_KAIROS");
-      USER_TOKEN_KAIROS.set(token);
+    if (data.token.length) {
+      USER_TOKEN_KAIROS.set(data.token);
     }
 
-    return redirect("/user/login");
-  } catch (error) {
-    return { error: "Erro ao realizar login: " + error };
+    return router.navigate("/v1", { replace: true });
+  } else {
+    return { error: "Erro ao realizar login: " + responseData };
   }
 }

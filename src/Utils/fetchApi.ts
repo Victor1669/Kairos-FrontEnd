@@ -1,6 +1,6 @@
 import { api } from "../Config/axiosConfig";
 
-type UseFetchProps<TBody> = {
+type FetchApiProps<TBody> = {
   method: "get" | "post" | "delete" | "put";
   route: string;
   body?: TBody;
@@ -8,16 +8,17 @@ type UseFetchProps<TBody> = {
 
 type MessageResponse = { message: string };
 
-type UseFetchResponse<TResponse> = {
+type FetchApiResponse<TResponse> = {
   status: number;
-  data: TResponse & MessageResponse;
+  success: boolean;
+  responseData: TResponse & MessageResponse;
 };
 
-export async function useFetch<TBody = object, TResponse = MessageResponse>({
+export async function fetchApi<TBody = object, TResponse = MessageResponse>({
   method,
   route,
   body,
-}: UseFetchProps<TBody>): Promise<UseFetchResponse<TResponse>> {
+}: FetchApiProps<TBody>): Promise<FetchApiResponse<TResponse>> {
   try {
     let res;
 
@@ -29,8 +30,11 @@ export async function useFetch<TBody = object, TResponse = MessageResponse>({
 
     return {
       status: res.status,
-      data: res.data,
+      success: res.status < 300,
+      responseData: res.data,
     };
+
+    // eslint-disable-next-line
   } catch (err: any) {
     const status = err.response?.status || 500;
     const errObj = err?.response?.data;
@@ -39,7 +43,8 @@ export async function useFetch<TBody = object, TResponse = MessageResponse>({
 
     return {
       status,
-      data: errMessage,
+      success: status < 300,
+      responseData: errMessage,
     };
   }
 }

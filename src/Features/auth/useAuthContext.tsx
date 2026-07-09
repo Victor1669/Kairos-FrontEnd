@@ -1,22 +1,32 @@
 import { createContext, useContext, useState } from "react";
-import type { UserType } from "./UserType";
+import type { ContentUserType } from "./UserType";
 
-interface AuthContextValues {}
+interface AuthContextValues {
+  user: ContentUserType;
+  login(user: ContentUserType): void;
+  logout(): void;
+  hasUserInfo: boolean;
+}
 
 const AuthContext = createContext<AuthContextValues | undefined>(undefined);
 
 function AuthContextProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserType>({} as UserType);
+  const [user, setUser] = useState<ContentUserType>({} as ContentUserType);
+
+  const hasUserInfo =
+    user.email !== undefined && user.id !== 0 && user.role !== null;
+
+  console.log(hasUserInfo);
 
   function logout() {
-    setUser({} as UserType);
+    setUser({} as ContentUserType);
   }
 
-  function login(user: UserType) {
+  function login(user: ContentUserType) {
     setUser(user);
   }
 
-  const value: AuthContextValues = { user, login, logout };
+  const value: AuthContextValues = { user, login, logout, hasUserInfo };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

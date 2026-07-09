@@ -1,4 +1,8 @@
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 import { useCartContext } from "@Cart/useCartContext";
+import { useAuthContext } from "@Auth/useAuthContext";
 
 import Miniatura from "@UI/Miniatura/Miniatura";
 
@@ -16,9 +20,16 @@ export default function DescricaoProduto({
 }) {
   const { nome, descricao, tamanhos, cores } = produto;
   const { adicionarProdutoAoCarrinho } = useCartContext();
+  const { hasUserInfo } = useAuthContext();
+
+  const navigateTo = useNavigate();
 
   function handleAdicionarAoCarrinho() {
-    adicionarProdutoAoCarrinho(produto);
+    if (hasUserInfo) {
+      adicionarProdutoAoCarrinho(produto);
+    } else {
+      navigateTo("/user/signup");
+    }
   }
 
   return (
@@ -51,10 +62,14 @@ export default function DescricaoProduto({
           </ul>
         </div>
 
-        <button onClick={handleAdicionarAoCarrinho} className="default-button">
+        <Button
+          type="submit"
+          variant="dark"
+          onClick={handleAdicionarAoCarrinho}
+        >
           <img src={CartIcon} />
           Adicionar ao carrinho
-        </button>
+        </Button>
 
         <div className={Styles.Seguranca}>
           <img src={LockIcon} />

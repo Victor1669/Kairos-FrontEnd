@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 import StarRating from "@UI/Stars/StarRating";
 
@@ -26,7 +27,9 @@ export default function EscreverAvaliacao() {
         onChange={(e) => setText(e.target.value)}
         rows={5}
       />
-      <button className="default-button">Enviar</button>
+      <Button type="submit" variant="dark">
+        Enviar
+      </Button>
     </form>
   );
 }

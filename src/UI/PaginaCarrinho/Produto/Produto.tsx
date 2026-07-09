@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 import type { ProdutoType } from "../../../Features/carrinho/CarrinhoType";
 import { useCartContext } from "../../../Features/carrinho/useCartContext";
 import { formatarParaDinheiro } from "@Utils/formatarParaDinheiro";
@@ -28,9 +30,19 @@ export default function Produto({ produto }: { produto: ProdutoType }) {
       <td className={Styles.CelulaQuantidade}>
         <span>Quantidade:</span>
         <div className={Styles.ContadorQuantidade}>
-          <button onClick={() => diminuirQtdItemIndividual(produto)}>-</button>
+          <Button
+            variant="dark"
+            onClick={() => diminuirQtdItemIndividual(produto)}
+          >
+            -
+          </Button>
           <p>{quantidade}</p>
-          <button onClick={() => aumentarQtdItemIndividual(produto)}>+</button>
+          <Button
+            variant="dark"
+            onClick={() => aumentarQtdItemIndividual(produto)}
+          >
+            +
+          </Button>
         </div>
       </td>
 
@@ -40,9 +52,12 @@ export default function Produto({ produto }: { produto: ProdutoType }) {
       </td>
 
       <td className={Styles.BtnRemover}>
-        <button onClick={() => removerProdutoDoCarrinho(produto)}>
+        <Button
+          variant="danger"
+          onClick={() => removerProdutoDoCarrinho(produto)}
+        >
           Remover
-        </button>
+        </Button>
       </td>
     </tr>
   );

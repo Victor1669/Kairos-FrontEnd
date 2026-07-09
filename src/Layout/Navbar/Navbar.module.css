@@ -21,10 +21,22 @@
       gap: 10px;
     }
   }
+
+  .Toggle {
+    &::after {
+      transition: all 0.3s;
+    }
+
+    &[aria-expanded="true"] {
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
 
 /* MOBILE */
-@media only screen and (max-width: 434px) {
+@media only screen and (max-width: 574px) {
   .Navbar {
     --navbarMobileWidth: 70dvw;
 
@@ -57,7 +69,7 @@
 }
 
 /* TAABLET/DESKTOP */
-@media only screen and (min-width: 435px) {
+@media only screen and (min-width: 574px) {
   .Navbar {
     background-color: var(--primary-color);
     margin-left: auto;

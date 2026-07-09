@@ -7,7 +7,7 @@ export default function Miniatura({
 }: {
   src?: string;
   label?: string;
-  onClick?: Function;
+  onClick?(): void;
 }) {
   return (
     <div className={Styles.Miniatura} onClick={() => onClick?.()}>

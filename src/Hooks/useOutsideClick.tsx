@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 
-export function useOutsideClick(handler: Function, listenCapturing: boolean) {
+export function useOutsideClick({
+  handler,
+  listenCapturing,
+}: {
+  handler(): void;
+  listenCapturing: boolean;
+}) {
   const modalRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -14,7 +20,7 @@ export function useOutsideClick(handler: Function, listenCapturing: boolean) {
 
     return () =>
       document.removeEventListener("click", handleClick, listenCapturing);
-  }, [handler]);
+  }, [handler, listenCapturing]);
 
   return modalRef;
 }

@@ -3,7 +3,7 @@
   grid-template-areas:
     "imagens . descricao"
     "avaliar . avaliacoes";
-  grid-template-columns: 420px 1fr max-content;
+  grid-template-columns: var(--imagensProdutoWidth) 1fr max-content;
   gap: 40px 20px;
 
   margin-inline: 60px;

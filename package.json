@@ -1,8 +1,9 @@
 {
   "name": "kairos",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "author": "Victor1669",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -19,7 +20,8 @@
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.76.1",
-    "react-router-dom": "^7.16.0"
+    "react-router-dom": "^7.16.0",
+    "react-toastify": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -35,6 +37,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12"

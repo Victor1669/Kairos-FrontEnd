@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+// eslint-disable-next-line
 export const useSaveOnUnload = (key: string, data: any) => {
   useEffect(() => {
     const handleBeforeUnload = () => {
