@@ -18,7 +18,7 @@ export default function Produto({
   return (
     <div
       onClick={() => {
-        navigateTo(`/comprar?id=${id}`);
+        navigateTo(`/v1/comprar?id=${id}`);
       }}
       className={`${Styles.Produto} ${className}`}
     >

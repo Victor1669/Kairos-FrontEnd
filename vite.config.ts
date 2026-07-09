@@ -12,6 +12,8 @@ export default defineConfig({
       "@Utils": path.resolve(__dirname, "./src/Utils"),
       "@UI": path.resolve(__dirname, "./src/UI"),
       "@Cart": path.resolve(__dirname, "./src/Features/carrinho"),
+      "@Auth": path.resolve(__dirname, "./src/Features/auth"),
+      "@Hooks": path.resolve(__dirname, "./src/Hooks"),
     },
   },
 });

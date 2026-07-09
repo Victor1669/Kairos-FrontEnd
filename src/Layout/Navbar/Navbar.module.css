@@ -28,8 +28,9 @@
   .Navbar {
     --navbarMobileWidth: 70dvw;
 
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
+    justify-content: flex-end;
     gap: 20px;
 
     background-color: #d9d9d9;
@@ -58,9 +59,8 @@
 /* TAABLET/DESKTOP */
 @media only screen and (min-width: 435px) {
   .Navbar {
-    flex-direction: row-reverse;
-
     background-color: var(--primary-color);
+    margin-left: auto;
 
     li {
       height: 60%;

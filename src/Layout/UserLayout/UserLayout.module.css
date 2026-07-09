@@ -1,0 +1,33 @@
+.UserLayout {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(2, 1fr);
+
+  background-color: #f3efe8;
+
+  padding: 20px;
+
+  /* LOGO */
+  & > img {
+    width: 300px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .UserLayout {
+    grid-template-columns: 1fr;
+
+    & > img {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .UserLayout {
+    padding: 0;
+    overflow: auto;
+
+    align-items: start;
+  }
+}

@@ -39,6 +39,9 @@
 .embla__button {
   all: unset;
   background-color: white;
+  color: #000;
+
+  min-width: 20px;
 
   margin-block: auto;
   padding: 5px;
@@ -51,6 +54,11 @@
   &:hover {
     background-color: #dadada;
   }
+}
+
+.embla__button--disabled {
+  opacity: 0;
+  cursor: initial;
 }
 
 .embla__selected-snap-display {

@@ -1,0 +1,37 @@
+.Form {
+  max-width: 400px;
+
+  display: grid;
+  gap: 15px;
+}
+
+.FieldContainer {
+  display: grid;
+  gap: 10px;
+}
+
+.InputContainer {
+  border: 1px solid #898989;
+  padding: 10px;
+  border-radius: 15px;
+
+  display: flex;
+  gap: 15px;
+
+  img:first-of-type {
+    width: 30px;
+    aspect-ratio: 1;
+  }
+
+  input {
+    all: unset;
+    flex: 1;
+    padding-inline: 10px;
+  }
+}
+
+.Error {
+  height: 1rem;
+  color: red;
+  margin-bottom: 0;
+}

@@ -1,23 +1,48 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import { useCartContext } from "@Cart/useCartContext";
 
 import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
-import AppLayout from "./Layout/AppLayout";
+import ContentLayout from "./Layout/ContentLayout";
 
 import PaginaDoProduto from "./Pages/PaginaDoProduto/PaginaDoProduto";
 import PaginaRaiz from "./Pages/PaginaRaiz";
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
+import PaginaLogin, {
+  action as loginAction,
+} from "./Pages/PaginaLogin/PaginaLogin";
+
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import UserLayout from "./Layout/UserLayout/UserLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <Navigate to="/v1" replace />,
+    index: true,
+    errorElement: <PageNotFound />,
+  },
+
+  {
+    path: "/v1",
+    element: <ContentLayout />,
     children: [
       { index: true, element: <PaginaRaiz /> },
-      { path: "/comprar", element: <PaginaDoProduto /> },
-      { path: "/carrinho", element: <PaginaCarrinho /> },
+      { path: "comprar", element: <PaginaDoProduto /> },
+      { path: "carrinho", element: <PaginaCarrinho /> },
+    ],
+  },
+  {
+    path: "/user",
+    element: <UserLayout />,
+    children: [
+      { path: "login", element: <PaginaLogin />, action: loginAction },
+      { path: "signup", element: <></> },
     ],
   },
 ]);

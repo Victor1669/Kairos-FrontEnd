@@ -47,29 +47,38 @@ export const usePrevNextButtons = (
 
 type PropType = ComponentProps<"button">;
 
-export const PrevButton = ({ children, disabled, ...restProps }: PropType) => {
+export const PrevButton = ({
+  children,
+  disabled,
+  className,
+  ...restProps
+}: PropType) => {
+  const baseClasses = "embla__button embla__button--prev";
+  const disabledClass = disabled ? " embla__button--disabled" : "";
+  const combinedClasses =
+    `${baseClasses}${disabledClass} ${className || ""}`.trim();
+
   return (
     <button
-      className={"embla__button embla__button--prev".concat(
-        disabled ? " embla__button--disabled" : "",
-      )}
+      className={combinedClasses}
       type="button"
+      disabled={disabled}
       {...restProps}
     >
-      {"<-"}
+      {children || "⬅"}
     </button>
   );
 };
 
-export const NextButton = ({ disabled, ...restProps }: PropType) => {
+export const NextButton = ({ disabled, className, ...restProps }: PropType) => {
+  const baseClasses = "embla__button embla__button--next";
+  const disabledClass = disabled ? " embla__button--disabled" : "";
+  const combinedClasses =
+    `${baseClasses}${disabledClass} ${className || ""}`.trim();
+
   return (
-    <button
-      className={"embla__button embla__button--next".concat(
-        disabled ? " embla__button--disabled" : "",
-      )}
-      {...restProps}
-    >
-      {"->"}
+    <button className={combinedClasses} disabled={disabled} {...restProps}>
+      {"➡"}
     </button>
   );
 };

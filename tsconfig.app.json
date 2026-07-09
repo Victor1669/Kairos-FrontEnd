@@ -22,7 +22,9 @@
       "@Assets/*": ["./src/assets/*"],
       "@Utils/*": ["./src/Utils/*"],
       "@UI/*": ["./src/UI/*"],
-      "@Cart/*": ["src/Features/carrinho/*"]
+      "@Cart/*": ["src/Features/carrinho/*"],
+      "@Auth/*": ["src/Features/auth/*"],
+      "@Hooks/*": ["src/Hooks/*"]
     }
   },
   "include": ["src"]

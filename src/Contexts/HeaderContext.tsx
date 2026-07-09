@@ -30,7 +30,7 @@ export function HeaderContextProvider({
     }
 
     return () => {
-      if (main) main.style.overflow = "auto";
+      if (main) main.style.overflowY = "auto";
     };
   }, [showMenu]);
 
