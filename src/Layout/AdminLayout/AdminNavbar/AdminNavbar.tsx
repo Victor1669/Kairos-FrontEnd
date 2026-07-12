@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "@Auth/useAuthContext";
 import { useSideMenuContext } from "../../../Contexts/SideMenuContext";
 
-import Styles from "./AdminLayoutNavbar.module.css";
+import Styles from "./AdminNavbar.module.css";
 
 import TShirtIcon from "@Assets/icons/navbar/t-shirt.png";
 import HomeIcon from "@Assets/icons/navbar/home.png";
@@ -13,26 +13,22 @@ import LogoutIcon from "@Assets/icons/navbar/logout.png";
 
 import { ProdutoIcon } from "@Assets/icons/navbar/ProdutoIcon";
 
-export default function AdminLayoutNavbar() {
+export default function AdminNavbar() {
   const { showMenu, menuRef } = useSideMenuContext();
   const { logout } = useAuthContext();
 
   return (
-    <nav
-      ref={menuRef}
-      className={Styles.AdminLayoutNavbar}
-      data-show-menu={showMenu}
-    >
+    <nav ref={menuRef} className={Styles.AdminNavbar} data-show-menu={showMenu}>
       <div>
         <span>
           <img src={TShirtIcon} />
           <p>Admin</p>
         </span>
-        <Link to="/v1/">
+        <Link to="/admin/">
           <img src={HomeIcon} />
           <p>Home</p>
         </Link>
-        <Link to="">
+        <Link to="/admin/orders">
           <img src={PedidosIcon} />
           <p>Pedidos</p>
         </Link>
@@ -40,7 +36,7 @@ export default function AdminLayoutNavbar() {
           <img src={ClientesIcon} />
           <p>Clientes</p>
         </Link>
-        <Link to="">
+        <Link to="/admin/products/">
           <ProdutoIcon type="light" />
           <p>Produtos</p>
         </Link>

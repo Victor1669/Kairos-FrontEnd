@@ -41,11 +41,14 @@ export default function PaginaDoProduto() {
   );
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loaderProduto({ params }: LoaderFunctionArgs) {
   const { id } = params;
 
   if (!id || isNaN(Number(id))) {
-    return null;
+    throw new Response(JSON.stringify({ message: "ID inválido" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const productId = Number(id);

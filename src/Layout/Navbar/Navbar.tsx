@@ -28,7 +28,7 @@ export default function Navbar() {
       </Link>
 
       {isAdmin && (
-        <Link to="/v1/products">
+        <Link to="/admin/products">
           <ProdutoIcon type="dark" />
 
           <p>Produtos</p>

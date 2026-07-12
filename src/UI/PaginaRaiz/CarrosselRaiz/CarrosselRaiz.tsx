@@ -2,14 +2,12 @@ import type { EmblaOptionsType } from "embla-carousel";
 import { useLoaderData } from "react-router-dom";
 
 import EmblaCarousel from "@UI/Carousel/EmblaCarousel";
-import Produto from "../Produto/Produto";
-
-import type { ProdutoType } from "@Products/ProdutoType";
+import ProdutoRaiz, { type ProdutoRaizType } from "../ProdutoRaiz/ProdutoRaiz";
 
 const OPTIONS: EmblaOptionsType = { dragFree: true };
 
-export default function ProdutosRaiz() {
-  const produtos: ProdutoType[] | string = useLoaderData();
+export default function CarrosselRaiz() {
+  const produtos: ProdutoRaizType[] | string = useLoaderData();
 
   return (
     <>
@@ -23,7 +21,7 @@ export default function ProdutosRaiz() {
         render={(item) => {
           return (
             <li key={item.id}>
-              <Produto className="embla__slide" produto={item} />
+              <ProdutoRaiz className="embla__slide" produto={item} />
             </li>
           );
         }}

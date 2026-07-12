@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router-dom";
 
-import Styles from "./Produto.module.css";
+import Styles from "./ProdutoRaiz.module.css";
 
 import type { ProdutoType } from "@Products/ProdutoType";
 
-export default function Produto({
+export interface ProdutoRaizType extends Omit<ProdutoType, "images"> {
+  image: string;
+}
+
+export default function ProdutoRaiz({
   produto,
   className,
 }: {
-  produto: ProdutoType;
+  produto: ProdutoRaizType;
   className?: string;
 }) {
   const { nome, price, id, image } = produto;
@@ -20,7 +24,7 @@ export default function Produto({
       onClick={() => {
         navigateTo(`/v1/comprar/${id}`);
       }}
-      className={`${Styles.Produto} ${className}`}
+      className={`${Styles.ProdutoRaiz} ${className}`}
     >
       <img src={image} />
       <p>{nome}</p>

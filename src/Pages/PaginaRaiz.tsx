@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 
-import { produtosApi } from "@Products/ProdutoServices";
-
 import { useAuthContext } from "@Auth/useAuthContext";
 
 import { USER_TOKEN_KAIROS } from "@Utils/Storage";
 
 import Introducao from "@UI/PaginaRaiz/Introducao/Introducao";
 import SobreNos from "@UI/PaginaRaiz/SobreNos/SobreNos";
-import ProdutosRaiz from "@UI/PaginaRaiz/Carrossel/ProdutosRaiz";
+import CarrosselRaiz from "@UI/PaginaRaiz/CarrosselRaiz/CarrosselRaiz";
 
 import type { ContentUserType } from "@Auth/UserType";
 
@@ -38,15 +36,9 @@ export default function PaginaRaiz() {
     <>
       <Introducao />
       <section>
-        <ProdutosRaiz />
+        <CarrosselRaiz />
       </section>
       <SobreNos />
     </>
   );
-}
-
-export async function loader() {
-  const res = await produtosApi();
-
-  return res.responseData;
 }

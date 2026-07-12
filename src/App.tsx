@@ -8,38 +8,50 @@ import { useCartContext } from "@Cart/useCartContext";
 
 import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
+// LAYOUT
 import ContentLayout from "./Layout/ContentLayout";
 import UserLayout from "./Layout/UserLayout/UserLayout";
 import AdminLayout from "./Layout/AdminLayout/AdminLayout";
 
+// PÁGINAS NORMAIS
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
-import PaginaRaiz, { loader as loaderProdutos } from "./Pages/PaginaRaiz";
+import PaginaRaiz from "./Pages/PaginaRaiz";
 import PaginaDoProduto, {
-  loader as loaderProduto,
+  loaderProduto,
 } from "./Pages/PaginaDoProduto/PaginaDoProduto";
 
-import PaginaLogin, {
-  action as loginAction,
-} from "./Pages/PaginaLogin/PaginaLogin";
+import PaginaLogin, { loginAction } from "./Pages/PaginaLogin/PaginaLogin";
 import PaginaCadastro, {
-  action as registerAction,
+  registerAction,
 } from "./Pages/PaginaCadastro/PaginaCadastro";
 
+// ESPECIAIS
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+
+// LOADERS
+import { loaderProdutos } from "./loaders/produtosLoader";
+
+// ADMIN
+import ManutencaoProdutos from "./Pages/Admin/ManutencaoProdutos/ManutencaoProdutos";
+import ManutencaoPedidos from "./Pages/Admin/ManutencaoPedidos/ManutencaoPedidos";
+import DashBoardAdmin from "./Pages/Admin/DashBoardAdmin/DashBoardAdmin";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Navigate to="/v1" replace />,
     index: true,
-    errorElement: <PageNotFound />,
+    errorElement: <ErrorPage />,
   },
 
   {
-    path: "v1",
+    path: "/v1",
     element: <ContentLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <PaginaRaiz />, loader: loaderProdutos },
+      { path: "*", element: <PageNotFound /> },
       {
         path: "comprar/:id",
         element: <PaginaDoProduto />,
@@ -51,6 +63,7 @@ export const router = createBrowserRouter([
   {
     path: "/user",
     element: <UserLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "login", element: <PaginaLogin />, action: loginAction },
       { path: "signup", element: <PaginaCadastro />, action: registerAction },
@@ -59,11 +72,13 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLayout />,
+    errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <DashBoardAdmin /> },
       {
         path: "orders",
         children: [
-          { path: "find", element: <></> },
+          { index: true, element: <ManutencaoPedidos /> },
           { path: ":id", element: <></> },
         ],
       },
@@ -72,7 +87,8 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <></>,
+            element: <ManutencaoProdutos />,
+            loader: loaderProdutos,
           },
           { path: "new", element: <></> },
           { path: "edit/:code", element: <></> },
@@ -85,7 +101,7 @@ export const router = createBrowserRouter([
 export default function App() {
   const { produtosNoCarrinho } = useCartContext();
 
-  useSaveOnUnload("CARRINHO", produtosNoCarrinho);
+  useSaveOnUnload("CARRINHO_KAIROS", produtosNoCarrinho);
 
   return <RouterProvider router={router} />;
 }

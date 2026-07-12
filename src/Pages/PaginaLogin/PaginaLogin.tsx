@@ -62,7 +62,7 @@ export default function PaginaLogin() {
   );
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function loginAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const dataObj: unknown = Object.fromEntries(formData);
 

@@ -1,13 +1,16 @@
 import { Button } from "react-bootstrap";
 
 import { useCartContext } from "../../../Features/carrinho/useCartContext";
-import { formatarParaDinheiro } from "@Utils/formatarParaDinheiro";
 
-import Styles from "./Produto.module.css";
+import Styles from "./ProdutoCarrinho.module.css";
 
 import type { CartProductType } from "@Products/ProdutoType";
 
-export default function Produto({ produto }: { produto: CartProductType }) {
+export default function ProdutoCarrinho({
+  produto,
+}: {
+  produto: CartProductType;
+}) {
   const { images, id, nome, quantidade, price } = produto;
 
   const {
@@ -17,13 +20,13 @@ export default function Produto({ produto }: { produto: CartProductType }) {
   } = useCartContext();
 
   return (
-    <tr className={Styles.Produto} key={id}>
+    <tr className={Styles.ProdutoCarrinho} key={id}>
       <td className={Styles.ImagemNome}>
         <img src={images[0].img_url} alt={nome} />
         <p>{nome}</p>
       </td>
 
-      <td className={Styles.PrecoProduto}>
+      <td className={Styles.PrecoProdutoCarrinho}>
         <span>Preço:</span>
         <p>{+price}</p>
       </td>

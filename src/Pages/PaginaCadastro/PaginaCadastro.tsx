@@ -89,7 +89,7 @@ export default function PaginaCadastro() {
   );
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function registerAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const dataObj: unknown = Object.fromEntries(formData);
 
