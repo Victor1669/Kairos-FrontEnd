@@ -2,16 +2,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { useOutsideClick } from "../Hooks/useOutsideClick";
 
-interface HeaderContextValues {
+interface SideMenuContextValues {
   menuRef: React.RefObject<HTMLElement | null>;
   showMenu: boolean;
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
   close(): void;
 }
 
-const HeaderContext = createContext<HeaderContextValues | undefined>(undefined);
+const SideMenuContext = createContext<SideMenuContextValues | undefined>(
+  undefined,
+);
 
-export function HeaderContextProvider({
+export function SideMenuContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -34,7 +36,7 @@ export function HeaderContextProvider({
     };
   }, [showMenu]);
 
-  const value: HeaderContextValues = {
+  const value: SideMenuContextValues = {
     menuRef,
     showMenu,
     setShowMenu,
@@ -42,16 +44,18 @@ export function HeaderContextProvider({
   };
 
   return (
-    <HeaderContext.Provider value={value}>{children}</HeaderContext.Provider>
+    <SideMenuContext.Provider value={value}>
+      {children}
+    </SideMenuContext.Provider>
   );
 }
 
-export function useHeaderContext() {
-  const context = useContext(HeaderContext);
+export function useSideMenuContext() {
+  const context = useContext(SideMenuContext);
 
   if (context === undefined) {
     throw new Error(
-      "HeaderContext deve ser usado dentro de HeaderContextProvider!",
+      "SideMenuContext deve ser usado dentro de SideMenuContextProvider!",
     );
   }
 

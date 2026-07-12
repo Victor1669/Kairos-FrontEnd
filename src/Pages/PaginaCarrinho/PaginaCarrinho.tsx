@@ -23,9 +23,7 @@ export default function PaginaCarrinho() {
 
   return (
     <div className={Styles.PaginaCarrinho}>
-      <section className={Styles.TableSection}>
-        <CarrinhoTable />
-      </section>
+      <section className={Styles.TableSection}>{/*<CarrinhoTable />*/}</section>
       <section className={Styles.FormSection}>
         <CarrinhoForm />
       </section>

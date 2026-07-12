@@ -10,10 +10,13 @@ import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
 import ContentLayout from "./Layout/ContentLayout";
 import UserLayout from "./Layout/UserLayout/UserLayout";
+import AdminLayout from "./Layout/AdminLayout/AdminLayout";
 
-import PaginaDoProduto from "./Pages/PaginaDoProduto/PaginaDoProduto";
-import PaginaRaiz from "./Pages/PaginaRaiz";
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
+import PaginaRaiz, { loader as loaderProdutos } from "./Pages/PaginaRaiz";
+import PaginaDoProduto, {
+  loader as loaderProduto,
+} from "./Pages/PaginaDoProduto/PaginaDoProduto";
 
 import PaginaLogin, {
   action as loginAction,
@@ -33,11 +36,15 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: "/v1",
+    path: "v1",
     element: <ContentLayout />,
     children: [
-      { index: true, element: <PaginaRaiz /> },
-      { path: "comprar", element: <PaginaDoProduto /> },
+      { index: true, element: <PaginaRaiz />, loader: loaderProdutos },
+      {
+        path: "comprar/:id",
+        element: <PaginaDoProduto />,
+        loader: loaderProduto,
+      },
       { path: "carrinho", element: <PaginaCarrinho /> },
     ],
   },
@@ -47,6 +54,30 @@ export const router = createBrowserRouter([
     children: [
       { path: "login", element: <PaginaLogin />, action: loginAction },
       { path: "signup", element: <PaginaCadastro />, action: registerAction },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "orders",
+        children: [
+          { path: "find", element: <></> },
+          { path: ":id", element: <></> },
+        ],
+      },
+      {
+        path: "products",
+        children: [
+          {
+            index: true,
+            element: <></>,
+          },
+          { path: "new", element: <></> },
+          { path: "edit/:code", element: <></> },
+        ],
+      },
     ],
   },
 ]);

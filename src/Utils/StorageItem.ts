@@ -1,18 +1,23 @@
 import { jwtDecode } from "jwt-decode";
 
-export class StoreItem {
+export class StoreItem<T> {
   itemName: string;
 
   constructor(itemName: string) {
     this.itemName = itemName;
   }
 
-  async get(): Promise<string> {
-    return localStorage.getItem(this.itemName) ?? "";
+  async get(): Promise<T | null> {
+    const data = localStorage.getItem(this.itemName);
+    try {
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
   }
 
-  async set(newItemValue: string): Promise<void> {
-    localStorage.setItem(this.itemName, newItemValue);
+  async set(newItemValue: T): Promise<void> {
+    localStorage.setItem(this.itemName, JSON.stringify(newItemValue));
   }
 
   async delete(): Promise<void> {
@@ -20,7 +25,7 @@ export class StoreItem {
   }
 }
 
-export class JWTStoreItem extends StoreItem {
+export class JWTStoreItem extends StoreItem<string> {
   constructor(itemName: string) {
     super(itemName);
   }

@@ -11,14 +11,14 @@ import Styles from "./DescricaoProduto.module.css";
 import LockIcon from "@Assets/icons/lock.png";
 import CartIcon from "@Assets/icons/cart.png";
 
-import type { ProdutoType } from "@Cart/CarrinhoType";
+import type { ProdutoType } from "@Products/ProdutoType";
 
 export default function DescricaoProduto({
   produto,
 }: {
   produto: ProdutoType;
 }) {
-  const { nome, descricao, tamanhos, cores } = produto;
+  const { nome, description, size, color } = produto;
   const { adicionarProdutoAoCarrinho } = useCartContext();
   const { hasUserInfo } = useAuthContext();
 
@@ -37,13 +37,13 @@ export default function DescricaoProduto({
       <div className={Styles.DescricaoProduto}>
         <div className={Styles.Descricao}>
           <h1>{nome}</h1>
-          <p>{descricao}</p>
+          <p>{description}</p>
         </div>
 
         <div className={Styles.Cores}>
           <p>Cores disponíveis</p>
           <ul>
-            {cores.map((c, index) => (
+            {color.map((c, index) => (
               <li
                 style={{ backgroundColor: c, width: 30, height: 30 }}
                 key={index}
@@ -54,7 +54,7 @@ export default function DescricaoProduto({
 
         <div className={Styles.Tamanhos}>
           <ul>
-            {tamanhos.map((t, index) => (
+            {size.map((t, index) => (
               <li key={index}>
                 <Miniatura label={t} />
               </li>

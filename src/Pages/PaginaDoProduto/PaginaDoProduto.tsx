@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData, type LoaderFunctionArgs } from "react-router-dom";
 
-import { useCartContext } from "../../Features/carrinho/useCartContext";
+import { produtoIndividualApi } from "@Products/ProdutoServices";
 
 import ImagensProduto from "@UI/PaginaDoProduto/ImagensProduto/ImagensProduto";
 import DescricaoProduto from "@UI/PaginaDoProduto/DescricaoProduto/DescricaoProduto";
@@ -11,17 +11,8 @@ import DadosAvaliacao from "@UI/PaginaDoProduto/DadosAvaliacao/DadosAvaliacao";
 
 import Styles from "./PaginaDoProduto.module.css";
 
-import { ProdutosMock } from "../../Mock/ProdutosMock";
-
 export default function PaginaDoProduto() {
-  const { pegarProdutoPeloId } = useCartContext();
-
-  const [searchParams] = useSearchParams();
-
-  const id = +searchParams.get("id")!;
-
-  const produto = pegarProdutoPeloId(id) || ProdutosMock[id];
-  const { avaliacoes, imagens } = produto;
+  const produto = useLoaderData();
 
   useEffect(() => {
     document
@@ -32,7 +23,7 @@ export default function PaginaDoProduto() {
 
   return (
     <div className={Styles.PaginaDoProduto}>
-      <ImagensProduto imagens={imagens} />
+      <ImagensProduto imagens={produto.images} />
 
       <DescricaoProduto produto={produto} />
 
@@ -42,10 +33,24 @@ export default function PaginaDoProduto() {
       </section>
 
       <section className={Styles.SecaoAvaliacoes}>
-        {avaliacoes.map((a, index) => (
+        {[].map((a, index) => (
           <Avaliacao key={index} avaliacao={a} />
         ))}
       </section>
     </div>
   );
+}
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  const { id } = params;
+
+  if (!id || isNaN(Number(id))) {
+    return null;
+  }
+
+  const productId = Number(id);
+
+  const res = await produtoIndividualApi(productId);
+
+  return res.responseData;
 }

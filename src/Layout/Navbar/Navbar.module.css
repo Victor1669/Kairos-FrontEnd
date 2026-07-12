@@ -5,21 +5,17 @@
   align-items: center;
   gap: 20px;
 
-  li {
-    display: flex;
+  img {
+    display: inherit;
+    width: 30px;
+    height: inherit;
+  }
 
-    img {
-      display: inherit;
-      width: 30px;
-      height: inherit;
-    }
-
-    a {
-      font-size: 13px;
-      display: inherit;
-      align-items: center;
-      gap: 10px;
-    }
+  a {
+    font-size: 13px;
+    display: inherit;
+    align-items: center;
+    gap: 10px;
   }
 
   .Toggle {
@@ -56,14 +52,17 @@
 
     padding: 60px 30px;
 
-    &[data-show-menu="true"] {
-      left: 0;
+    img,
+    svg {
+      width: 40px;
     }
 
-    li {
-      align-items: center;
-      gap: 15px;
-      height: 35px;
+    img {
+      padding: 5px;
+    }
+
+    &[data-show-menu="true"] {
+      left: 0;
     }
   }
 }
@@ -73,12 +72,5 @@
   .Navbar {
     background-color: var(--primary-color);
     margin-left: auto;
-
-    li {
-      height: 60%;
-
-      align-items: center;
-      gap: 10px;
-    }
   }
 }

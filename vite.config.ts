@@ -11,9 +11,11 @@ export default defineConfig({
       "@Assets": path.resolve(__dirname, "./src/assets"),
       "@Utils": path.resolve(__dirname, "./src/Utils"),
       "@UI": path.resolve(__dirname, "./src/UI"),
+      "@Hooks": path.resolve(__dirname, "./src/Hooks"),
+      "@Contexts": path.resolve(__dirname, "./src/Contexts"),
       "@Cart": path.resolve(__dirname, "./src/Features/carrinho"),
       "@Auth": path.resolve(__dirname, "./src/Features/auth"),
-      "@Hooks": path.resolve(__dirname, "./src/Hooks"),
+      "@Products": path.resolve(__dirname, "./src/Features/produtos"),
     },
   },
 });

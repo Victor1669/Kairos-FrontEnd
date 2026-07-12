@@ -7,7 +7,7 @@ export default function ContentLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main style={{ paddingTop: 10 }}>
         <Outlet />
         <Footer />
       </main>

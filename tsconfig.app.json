@@ -22,9 +22,11 @@
       "@Assets/*": ["./src/assets/*"],
       "@Utils/*": ["./src/Utils/*"],
       "@UI/*": ["./src/UI/*"],
+      "@Hooks/*": ["src/Hooks/*"],
+      "@Contexts/*": ["src/Contexts/*"],
       "@Cart/*": ["src/Features/carrinho/*"],
-      "@Auth/*": ["src/Features/auth/*"],
-      "@Hooks/*": ["src/Hooks/*"]
+      "@Products/*": ["src/Features/produtos/*"],
+      "@Auth/*": ["src/Features/auth/*"]
     }
   },
   "include": ["src"]

@@ -11,7 +11,7 @@ import Logo from "@UI/Logo";
 
 import Styles from "./PaginaLogin.module.css";
 
-import EmailIcon from "@Assets/icons/email.png";
+import EmailIcon from "@Assets/icons/forms/email.png";
 import LockIcon from "@Assets/icons/lock.png";
 
 interface FormFields {

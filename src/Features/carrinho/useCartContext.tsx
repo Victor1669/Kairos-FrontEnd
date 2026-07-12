@@ -1,73 +1,82 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import {
-  adicionarItemAoCarrinhoStorage,
-  removerItemDoCarrinhoStorage,
+  adicionarItemAoCartStorage,
+  removerItemDoCartStorage,
   pegarProdutosStorage,
-  atualizarCarrinhoStorage,
-} from "./carrinhoStorageHelper";
+} from "./cartStorageHelpers";
 
-import type { AvaliacaoType, ProdutoType } from "./CarrinhoType";
+import type { ProdutoType, CartProductType } from "@Products/ProdutoType";
 
 interface CartContextValues {
   adicionarProdutoAoCarrinho(produto: ProdutoType): void;
   removerProdutoDoCarrinho(produto: ProdutoType): void;
-  aumentarQtdItemIndividual(produto: ProdutoType): void;
-  diminuirQtdItemIndividual(produto: ProdutoType): void;
-  adicionarAvaliacaoAoProduto(id: number, avaliacao: AvaliacaoType): void;
-  produtosNoCarrinho: ProdutoType[];
+  aumentarQtdItemIndividual(produtoId: number): number;
+  diminuirQtdItemIndividual(produtoId: number): number;
+  produtosNoCarrinho: CartProductType[];
   calcularValorTotal: () => number;
-  pegarProdutoPeloId: (id: number) => ProdutoType | undefined;
+  pegarProdutoPeloId: (id: number) => CartProductType | undefined;
 }
 
 const CartContext = createContext<CartContextValues | undefined>(undefined);
 
 function CartContextProvider({ children }: { children: React.ReactNode }) {
-  const [produtosNoCarrinho, setProdutosNoCarrinho] = useState<ProdutoType[]>(
-    () => pegarProdutosStorage(),
-  );
+  const [produtosNoCarrinho, setProdutosNoCarrinho] = useState<
+    CartProductType[]
+  >([]);
 
-  function aumentarQtdItemIndividual(produto: ProdutoType) {
+  useEffect(() => {
+    pegarProdutosStorage().then((produtos) => setProdutosNoCarrinho(produtos));
+  }, []);
+
+  function aumentarQtdItemIndividual(produtoId: number) {
+    const qtdFinal = pegarProdutoPeloId(produtoId)?.quantidade || 0;
+
     setProdutosNoCarrinho((prev) =>
       prev.map((p) =>
-        p.id === produto.id ? { ...p, quantidade: p.quantidade + 1 } : p,
+        p.id === produtoId ? { ...p, quantidade: p.quantidade + 1 } : p,
       ),
     );
+
+    return qtdFinal;
   }
 
-  function diminuirQtdItemIndividual(produto: ProdutoType) {
+  function diminuirQtdItemIndividual(produtoId: number) {
+    const qtdFinal = pegarProdutoPeloId(produtoId)?.quantidade || 0;
     const qtdMinima = 1;
 
     setProdutosNoCarrinho((prev) =>
       prev.map((p) =>
-        p.id === produto.id
+        p.id === produtoId
           ? { ...p, quantidade: Math.max(qtdMinima, p.quantidade - 1) }
           : p,
       ),
     );
+
+    return qtdFinal;
   }
 
-  function adicionarProdutoAoCarrinho(produto: ProdutoType) {
+  function adicionarProdutoAoCarrinho(produto: CartProductType) {
     const produtoExistente = produtosNoCarrinho.find(
       (p) => p.id === produto.id,
     );
 
     if (produtoExistente) {
-      aumentarQtdItemIndividual(produtoExistente);
+      aumentarQtdItemIndividual(produtoExistente.id);
     } else {
-      adicionarItemAoCarrinhoStorage(produto);
+      adicionarItemAoCartStorage(produto);
       setProdutosNoCarrinho((ps) => [...ps, { ...produto, quantidade: 1 }]);
     }
   }
 
-  function removerProdutoDoCarrinho(produto: ProdutoType) {
-    removerItemDoCarrinhoStorage(produto);
+  function removerProdutoDoCarrinho(produto: CartProductType) {
+    removerItemDoCartStorage(produto);
     setProdutosNoCarrinho((ps) => ps.filter((p) => p.id !== produto.id));
   }
 
   function calcularValorTotal() {
     return produtosNoCarrinho.reduce(
-      (prev, curr) => prev + curr.quantidade * curr.precoIndividual,
+      (prev, curr) => prev + curr.quantidade * +curr.price,
       0,
     );
   }
@@ -76,22 +85,11 @@ function CartContextProvider({ children }: { children: React.ReactNode }) {
     return produtosNoCarrinho.find((p) => p.id === id);
   }
 
-  function adicionarAvaliacaoAoProduto(id: number, avaliacao: AvaliacaoType) {
-    setProdutosNoCarrinho((prev) => {
-      const atualizados = prev.map((p) =>
-        p.id === id ? { ...p, avaliacoes: [...p.avaliacoes, avaliacao] } : p,
-      );
-      atualizarCarrinhoStorage(atualizados);
-      return atualizados;
-    });
-  }
-
   const value: CartContextValues = {
     adicionarProdutoAoCarrinho,
     removerProdutoDoCarrinho,
     aumentarQtdItemIndividual,
     diminuirQtdItemIndividual,
-    adicionarAvaliacaoAoProduto,
     produtosNoCarrinho,
     calcularValorTotal,
     pegarProdutoPeloId,

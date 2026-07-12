@@ -11,8 +11,9 @@ import {
 import "./embla.css";
 
 interface PropType<T> extends React.HTMLAttributes<HTMLDivElement> {
-  data: T[];
-  render: (item: T, index: number) => React.ReactNode;
+  data: T[] | string;
+  render(item: T, index: number): React.ReactNode;
+  errorElement?: React.ReactNode;
   options?: EmblaOptionsType;
 }
 
@@ -23,7 +24,7 @@ export interface EmblaCarouselRef {
 }
 
 function EmblaCarouselInner<T>(
-  { data, render, options, ...divProps }: PropType<T>,
+  { data, render, options, errorElement, ...divProps }: PropType<T>,
   ref: React.ForwardedRef<EmblaCarouselRef>,
 ) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
@@ -44,6 +45,10 @@ function EmblaCarouselInner<T>(
     }),
     [emblaApi],
   );
+
+  if (typeof data === "string") {
+    return errorElement;
+  }
 
   return (
     <div {...divProps} className={`embla ${divProps.className ?? ""}`}>

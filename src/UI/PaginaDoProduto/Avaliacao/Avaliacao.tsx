@@ -1,7 +1,7 @@
 import { Star } from "@UI/Stars/StarRating";
 import Styles from "./Avaliacao.module.css";
 
-import type { AvaliacaoType } from "@Cart/CarrinhoType";
+import type { AvaliacaoType } from "@Cart/CartType";
 
 export default function Avaliacao({ avaliacao }: { avaliacao: AvaliacaoType }) {
   const {

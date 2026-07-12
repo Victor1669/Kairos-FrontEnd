@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import Styles from "./Produto.module.css";
 
-import type { ProdutoType } from "../../../Features/carrinho/CarrinhoType";
+import type { ProdutoType } from "@Products/ProdutoType";
 
 export default function Produto({
   produto,
@@ -11,20 +11,20 @@ export default function Produto({
   produto: ProdutoType;
   className?: string;
 }) {
-  const { nome, imagens, precoIndividual, id } = produto;
+  const { nome, price, id, image } = produto;
 
   const navigateTo = useNavigate();
 
   return (
     <div
       onClick={() => {
-        navigateTo(`/v1/comprar?id=${id}`);
+        navigateTo(`/v1/comprar/${id}`);
       }}
       className={`${Styles.Produto} ${className}`}
     >
-      <img src={imagens[0].imagem} />
+      <img src={image} />
       <p>{nome}</p>
-      <b>R$ {precoIndividual},00</b>
+      <b>R$ {price}</b>
     </div>
   );
 }

@@ -1,0 +1,43 @@
+.AdminLayoutNavbar {
+  background-color: var(--secondary-color);
+  display: grid;
+  padding: 20px;
+
+  div {
+    display: grid;
+    align-self: self-start;
+    gap: 15px;
+  }
+
+  a,
+  span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      width: 40px;
+      height: 50px;
+    }
+
+    p {
+      width: 60px;
+    }
+  }
+
+  span {
+    img {
+      width: 70px;
+      height: 80px;
+    }
+  }
+
+  a,
+  p {
+    color: #fff;
+  }
+}
+
+.Logout {
+  align-self: self-end;
+}

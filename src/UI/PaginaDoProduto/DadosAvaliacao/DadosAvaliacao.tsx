@@ -3,18 +3,16 @@ import RatingRow from "../RatingRow/RatingRow";
 
 import Styles from "./DadosAvaliacao.module.css";
 
-import type { ProdutoType } from "@Cart/CarrinhoType";
+import type { ProdutoType } from "@Products/ProdutoType";
 
 export default function DadosAvaliacao({ produto }: { produto: ProdutoType }) {
-  const { avaliacaoMedia, totalAvaliacoes } = produto;
-
   return (
     <div className={Styles.DadosAvaliacao}>
       <h3>Avaliações</h3>
       <div className={Styles.StarRatingContainer}>
-        <p>{avaliacaoMedia}</p>
-        <StarRating locked defaultRating={avaliacaoMedia} size={40} />
-        <p>({totalAvaliacoes} avaliações)</p>
+        <p>{4}</p>
+        <StarRating locked defaultRating={4} size={40} />
+        <p>({150} avaliações)</p>
       </div>
       <RatingRow valor={8} maximo={10}>
         5

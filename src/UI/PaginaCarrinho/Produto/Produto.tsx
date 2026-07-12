@@ -1,13 +1,14 @@
 import { Button } from "react-bootstrap";
 
-import type { ProdutoType } from "../../../Features/carrinho/CarrinhoType";
 import { useCartContext } from "../../../Features/carrinho/useCartContext";
 import { formatarParaDinheiro } from "@Utils/formatarParaDinheiro";
 
 import Styles from "./Produto.module.css";
 
-export default function Produto({ produto }: { produto: ProdutoType }) {
-  const { imagens, id, nome, quantidade, precoIndividual } = produto;
+import type { CartProductType } from "@Products/ProdutoType";
+
+export default function Produto({ produto }: { produto: CartProductType }) {
+  const { images, id, nome, quantidade, price } = produto;
 
   const {
     aumentarQtdItemIndividual,
@@ -18,13 +19,13 @@ export default function Produto({ produto }: { produto: ProdutoType }) {
   return (
     <tr className={Styles.Produto} key={id}>
       <td className={Styles.ImagemNome}>
-        <img src={imagens[0].imagem} alt={nome} />
+        <img src={images[0].img_url} alt={nome} />
         <p>{nome}</p>
       </td>
 
       <td className={Styles.PrecoProduto}>
         <span>Preço:</span>
-        <p>{formatarParaDinheiro(precoIndividual)}</p>
+        <p>{+price}</p>
       </td>
 
       <td className={Styles.CelulaQuantidade}>
@@ -32,14 +33,14 @@ export default function Produto({ produto }: { produto: ProdutoType }) {
         <div className={Styles.ContadorQuantidade}>
           <Button
             variant="dark"
-            onClick={() => diminuirQtdItemIndividual(produto)}
+            onClick={() => diminuirQtdItemIndividual(produto.id)}
           >
             -
           </Button>
           <p>{quantidade}</p>
           <Button
             variant="dark"
-            onClick={() => aumentarQtdItemIndividual(produto)}
+            onClick={() => aumentarQtdItemIndividual(produto.id)}
           >
             +
           </Button>
@@ -48,7 +49,7 @@ export default function Produto({ produto }: { produto: ProdutoType }) {
 
       <td className={Styles.PrecoTotal}>
         <span>Preço total:</span>
-        <p>{formatarParaDinheiro(precoIndividual * quantidade)}</p>
+        <p>{+price}</p>
       </td>
 
       <td className={Styles.BtnRemover}>
