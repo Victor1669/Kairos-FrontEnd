@@ -26,3 +26,10 @@ export async function addProdutosApi() {
     route: "products",
   });
 }
+
+export async function deleteProdutoApi(productId: number) {
+  return fetchApi({
+    method: "delete",
+    route: `products/${productId}`,
+  });
+}

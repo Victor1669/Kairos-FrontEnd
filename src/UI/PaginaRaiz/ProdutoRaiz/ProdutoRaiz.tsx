@@ -2,17 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 import Styles from "./ProdutoRaiz.module.css";
 
-import type { ProdutoType } from "@Products/ProdutoType";
-
-export interface ProdutoRaizType extends Omit<ProdutoType, "images"> {
-  image: string;
-}
+import type { ProdutoImagemUnicaType } from "@Products/ProdutoType";
 
 export default function ProdutoRaiz({
   produto,
   className,
 }: {
-  produto: ProdutoRaizType;
+  produto: ProdutoImagemUnicaType;
   className?: string;
 }) {
   const { nome, price, id, image } = produto;

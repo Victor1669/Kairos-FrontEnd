@@ -33,7 +33,9 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import { loaderProdutos } from "./loaders/produtosLoader";
 
 // ADMIN
-import ManutencaoProdutos from "./Pages/Admin/ManutencaoProdutos/ManutencaoProdutos";
+import ManutencaoProdutos, {
+  deleteProductAction,
+} from "./Pages/Admin/ManutencaoProdutos/ManutencaoProdutos";
 import ManutencaoPedidos from "./Pages/Admin/ManutencaoPedidos/ManutencaoPedidos";
 import DashBoardAdmin from "./Pages/Admin/DashBoardAdmin/DashBoardAdmin";
 
@@ -78,7 +80,10 @@ export const router = createBrowserRouter([
       {
         path: "orders",
         children: [
-          { index: true, element: <ManutencaoPedidos /> },
+          {
+            index: true,
+            element: <ManutencaoPedidos />,
+          },
           { path: ":id", element: <></> },
         ],
       },
@@ -89,6 +94,7 @@ export const router = createBrowserRouter([
             index: true,
             element: <ManutencaoProdutos />,
             loader: loaderProdutos,
+            action: deleteProductAction,
           },
           { path: "new", element: <></> },
           { path: "edit/:code", element: <></> },

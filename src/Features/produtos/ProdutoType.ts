@@ -24,6 +24,10 @@ export interface ProdutoType {
   description: string;
 }
 
+export interface ProdutoImagemUnicaType extends Omit<ProdutoType, "images"> {
+  image: string;
+}
+
 export interface CartProductType extends ProdutoType {
   quantidade: number;
   totalAvaliacoes: number;

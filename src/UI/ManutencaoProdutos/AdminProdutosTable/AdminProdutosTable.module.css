@@ -1,0 +1,22 @@
+.AdminProdutosTable {
+  border-radius: 20px;
+  overflow: hidden;
+
+  table {
+    width: 100%;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  th,
+  td {
+    padding: 20px;
+  }
+
+  p {
+    text-align: start;
+    margin: auto;
+  }
+}

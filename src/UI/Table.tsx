@@ -1,3 +1,5 @@
+import { Table as BootstrapTable } from "react-bootstrap";
+
 type PropType<T> = {
   data: T[];
   render: (item: T) => React.ReactNode;
@@ -12,7 +14,7 @@ export default function Table<T>({
   columns,
 }: PropType<T>) {
   return (
-    <table cellSpacing={10} className={className}>
+    <BootstrapTable className={className} responsive hover>
       <thead>
         <tr>
           {columns.map((c) => (
@@ -21,6 +23,6 @@ export default function Table<T>({
         </tr>
       </thead>
       <tbody>{data.map(render)}</tbody>
-    </table>
+    </BootstrapTable>
   );
 }

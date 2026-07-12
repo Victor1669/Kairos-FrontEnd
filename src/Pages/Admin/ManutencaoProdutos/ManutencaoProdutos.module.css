@@ -1,0 +1,11 @@
+.ManutencaoProdutos {
+  width: 90%;
+  margin-inline: auto;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    margin-block: 20px;
+  }
+}

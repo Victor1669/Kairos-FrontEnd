@@ -1,0 +1,29 @@
+.ProdutoAdmin {
+  text-align: center;
+  font-size: 13px;
+}
+
+.ImagemNome {
+  display: flex;
+  justify-content: space-between;
+
+  img {
+    width: 150px;
+    margin-right: 10px;
+  }
+
+  p {
+    margin-block: auto !important;
+  }
+}
+
+.Acoes {
+  display: flex;
+  justify-content: space-between;
+
+  button:hover {
+    img {
+      mix-blend-mode: difference;
+    }
+  }
+}
