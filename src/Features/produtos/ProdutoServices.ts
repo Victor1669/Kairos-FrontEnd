@@ -1,4 +1,5 @@
 import { fetchApi } from "@Utils/fetchApi";
+import { fetchApiUpload } from "@Utils/fetchApiUpload";
 
 import type { ProdutoType } from "./ProdutoType";
 
@@ -20,9 +21,9 @@ export async function produtoIndividualApi(productId: number) {
   });
 }
 
-export async function addProdutosApi() {
-  return fetchApi({
-    method: "post",
+export async function addProdutoApi(formData: FormData) {
+  return fetchApiUpload({
+    formData,
     route: "products",
   });
 }

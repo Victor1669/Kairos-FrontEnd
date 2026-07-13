@@ -30,7 +30,7 @@ export default function Field<T extends FieldValues, TName extends Path<T>>({
   name,
   label,
   type = "text",
-  className,
+  className = "",
   style,
   value,
   placeHolder,

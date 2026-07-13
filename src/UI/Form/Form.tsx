@@ -10,6 +10,10 @@ import type {
 } from "react-hook-form";
 
 import Field, { type FormFieldProps } from "./Field";
+import CheckboxField from "./CheckBoxField";
+import FileField from "./FileField";
+import SelectField from "./SelectField";
+import CheckboxGroupField from "./CheckboxGroupField";
 
 import Styles from "./Form.module.css";
 
@@ -22,13 +26,15 @@ interface FormInternalProps<T extends FieldValues> {
   method?: "get" | "post" | "put" | "patch" | "delete";
 }
 
+export type { FormFieldProps } from "./Field";
+
 function FormInternal<T extends FieldValues>({
   children,
   onSubmit,
   options,
   style,
   className,
-  method,
+  method = "post",
 }: FormInternalProps<T>) {
   const methods = useForm<T>({
     ...options,
@@ -39,21 +45,36 @@ function FormInternal<T extends FieldValues>({
 
   const handleValidSubmit: SubmitHandler<T> = (data) => {
     const formData = new FormData();
+
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value as string);
+      if (value !== null && value !== undefined) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (item instanceof File) {
+              formData.append(key, item);
+            } else {
+              formData.append(key, item as string);
+            }
+          });
+        } else if (value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, value as string);
+        }
+      }
     });
 
     if (onSubmit) {
       onSubmit(data);
     }
 
-    submit(formData, { method: method });
+    submit(formData, { method, encType: "multipart/form-data" });
   };
 
   return (
     <FormProvider {...methods}>
       <form
-        className={`${Styles.Form} ${className} `}
+        className={`${Styles.Form} ${className}`}
         style={style}
         onSubmit={methods.handleSubmit(handleValidSubmit)}
       >
@@ -65,5 +86,22 @@ function FormInternal<T extends FieldValues>({
 
 export const createForm = <T extends FieldValues>() => ({
   Field: (props: FormFieldProps<T, Path<T>>) => <Field {...props} />,
+
+  CheckboxField: (
+    props: React.ComponentProps<typeof CheckboxField<T, Path<T>>>,
+  ) => <CheckboxField {...props} />,
+
+  CheckboxGroupField: (
+    props: React.ComponentProps<typeof CheckboxGroupField<T, Path<T>>>,
+  ) => <CheckboxGroupField {...props} />,
+
+  FileField: (props: React.ComponentProps<typeof FileField<T, Path<T>>>) => (
+    <FileField {...props} />
+  ),
+
+  SelectField: (
+    props: React.ComponentProps<typeof SelectField<T, Path<T>>>,
+  ) => <SelectField {...props} />,
+
   Form: (props: FormInternalProps<T>) => <FormInternal {...props} />,
 });

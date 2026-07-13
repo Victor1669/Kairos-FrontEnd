@@ -1,0 +1,15 @@
+.CarrosselRaiz {
+  padding-inline: 7.5dvw;
+  margin-block: 40px;
+
+  h2 {
+    max-width: 85dvw;
+    margin-top: 40px;
+    margin-left: 50px;
+    width: fit-content;
+  }
+}
+
+.Carrossel {
+  margin-top: 40px;
+}

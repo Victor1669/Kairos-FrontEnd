@@ -1,0 +1,89 @@
+.AddProduto {
+  margin: 20px;
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.AddProdutoForm {
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-content: center;
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.ImageSection {
+  display: flex;
+  flex-direction: column;
+
+  margin-inline: 50px;
+}
+
+.ButtonArea {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.ImageField {
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+
+  flex: 1;
+}
+
+.ImageContainer {
+  display: flex;
+  flex-direction: column;
+
+  /* CASO TENHA COLOCADO UMA IMAGEM */
+  &:has(> img) {
+    display: grid;
+
+    /* A IMAGEM EM SI */
+    & > img {
+      width: 100%;
+      max-width: 375px;
+      aspect-ratio: 1;
+
+      border-radius: 20px;
+      border: 1px solid black;
+      margin: auto;
+    }
+
+    /* TEXTO COM O NOME DA IMAGEM */
+    p {
+      display: none;
+    }
+  }
+}
+
+.ImageInputPlaceholder {
+  display: grid;
+  place-items: center;
+
+  border: 1px solid black;
+  border-radius: 20px;
+
+  flex: 1;
+  text-align: center;
+
+  img {
+    margin-inline: auto;
+    background-color: #8fb3ff;
+    border-radius: 50%;
+    padding: 20px;
+  }
+}

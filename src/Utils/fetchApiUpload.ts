@@ -18,7 +18,11 @@ export async function fetchApiUpload<TResponse = MessageResponse>({
   formData,
 }: FetchApiUploadProps): Promise<FetchApiUploadResponse<TResponse>> {
   try {
-    const res = await api.post(`/${route}`, formData);
+    const res = await api.post(`/${route}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     return {
       status: res.status,

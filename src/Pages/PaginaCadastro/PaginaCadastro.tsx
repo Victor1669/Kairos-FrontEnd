@@ -32,11 +32,11 @@ export default function PaginaCadastro() {
         method="post"
         options={{
           defaultValues: {
-            name: "Victor",
-            email: "victorfernandes1668@gmail.com",
-            password: "Teste@1234",
-            phone: "332323232323",
-            cpf: "05751881893",
+            name: "",
+            email: "",
+            password: "",
+            phone: "",
+            cpf: "",
           },
         }}
       >

@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { useLoaderData, type ActionFunctionArgs } from "react-router-dom";
+import {
+  useLoaderData,
+  useNavigate,
+  type ActionFunctionArgs,
+} from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import { deleteProdutoApi } from "@Products/ProdutoServices";
 
@@ -9,14 +14,15 @@ import DeleteProductDialog from "@UI/ManutencaoProdutos/DeleteProductDialog/Dele
 import Styles from "./ManutencaoProdutos.module.css";
 
 import type { ProdutoImagemUnicaType } from "@Products/ProdutoType";
-import { Button } from "react-bootstrap";
 
 export default function ManutencaoProdutos() {
   const produtos: ProdutoImagemUnicaType[] | string = useLoaderData();
+  const navigateTo = useNavigate();
 
   const [selectedProductId, setSelectedProductId] = useState<number | null>(
     null,
   );
+
   const [showDialog, setShowDialog] = useState(false);
 
   const close = () => {
@@ -33,7 +39,9 @@ export default function ManutencaoProdutos() {
       <section className={Styles.ManutencaoProdutos}>
         <header>
           <h1>Produtos</h1>
-          <Button>+ Novo produto</Button>
+          <Button onClick={() => navigateTo("/admin/products/new")}>
+            <span>+</span> Novo produto
+          </Button>
         </header>
         <AdminProdutosTable produtos={produtos} open={open} />
         <DeleteProductDialog

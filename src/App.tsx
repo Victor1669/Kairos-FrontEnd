@@ -38,6 +38,9 @@ import ManutencaoProdutos, {
 } from "./Pages/Admin/ManutencaoProdutos/ManutencaoProdutos";
 import ManutencaoPedidos from "./Pages/Admin/ManutencaoPedidos/ManutencaoPedidos";
 import DashBoardAdmin from "./Pages/Admin/DashBoardAdmin/DashBoardAdmin";
+import AddProduto, {
+  createProductAction,
+} from "./Pages/Admin/AddProduto/AddProduto";
 
 export const router = createBrowserRouter([
   {
@@ -96,7 +99,11 @@ export const router = createBrowserRouter([
             loader: loaderProdutos,
             action: deleteProductAction,
           },
-          { path: "new", element: <></> },
+          {
+            path: "new",
+            element: <AddProduto />,
+            action: createProductAction,
+          },
           { path: "edit/:code", element: <></> },
         ],
       },

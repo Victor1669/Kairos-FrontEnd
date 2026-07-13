@@ -35,9 +35,7 @@ export default function PaginaRaiz() {
   return (
     <>
       <Introducao />
-      <section>
-        <CarrosselRaiz />
-      </section>
+      <CarrosselRaiz />
       <SobreNos />
     </>
   );

@@ -1,7 +1,6 @@
 .embla {
   max-width: 85dvw;
-
-  margin: auto;
+  width: fit-content;
 
   display: flex;
   justify-content: center;

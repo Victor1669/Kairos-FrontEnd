@@ -1,5 +1,4 @@
 .AdminProdutosTable {
-  border-radius: 20px;
   overflow: hidden;
 
   table {
@@ -8,11 +7,6 @@
 
   td {
     vertical-align: middle;
-  }
-
-  th,
-  td {
-    padding: 20px;
   }
 
   p {
