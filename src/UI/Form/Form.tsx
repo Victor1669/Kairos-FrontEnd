@@ -11,7 +11,7 @@ import type {
 
 import Field, { type FormFieldProps } from "./Field";
 import CheckboxField from "./CheckBoxField";
-import FileField from "./FileField";
+import ImageInput from "./ImageInput";
 import SelectField from "./SelectField";
 import CheckboxGroupField from "./CheckboxGroupField";
 
@@ -95,8 +95,8 @@ export const createForm = <T extends FieldValues>() => ({
     props: React.ComponentProps<typeof CheckboxGroupField<T, Path<T>>>,
   ) => <CheckboxGroupField {...props} />,
 
-  FileField: (props: React.ComponentProps<typeof FileField<T, Path<T>>>) => (
-    <FileField {...props} />
+  ImageInput: (props: React.ComponentProps<typeof ImageInput<T, Path<T>>>) => (
+    <ImageInput {...props} />
   ),
 
   SelectField: (

@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import Styles from "./ProdutoAdmin.module.css";
 
@@ -14,7 +15,9 @@ export default function ProdutoAdmin({
   produto: ProdutoImagemUnicaType;
   open(id: number): void;
 }) {
-  const { image, id, nome, price } = produto;
+  const { image, id, nome, price, code } = produto;
+
+  const navigateTo = useNavigate();
 
   return (
     <tr className={Styles.ProdutoAdmin} key={id}>
@@ -35,7 +38,10 @@ export default function ProdutoAdmin({
 
       <td>
         <span className={Styles.Acoes}>
-          <Button variant="outline-info" onClick={() => {}}>
+          <Button
+            variant="outline-info"
+            onClick={() => navigateTo(`/admin/products/edit/${code}`)}
+          >
             <img src={EditIcon} />
           </Button>
           <Button variant="outline-danger" onClick={() => open(id)}>

@@ -16,9 +16,7 @@ import AdminLayout from "./Layout/AdminLayout/AdminLayout";
 // PÁGINAS NORMAIS
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
 import PaginaRaiz from "./Pages/PaginaRaiz";
-import PaginaDoProduto, {
-  loaderProduto,
-} from "./Pages/PaginaDoProduto/PaginaDoProduto";
+import PaginaDoProduto from "./Pages/PaginaDoProduto/PaginaDoProduto";
 
 import PaginaLogin, { loginAction } from "./Pages/PaginaLogin/PaginaLogin";
 import PaginaCadastro, {
@@ -30,7 +28,8 @@ import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 // LOADERS
-import { loaderProdutos } from "./loaders/produtosLoader";
+import { loaderProdutos } from "./loaders/loaderProdutos";
+import { loaderProdutoIndividual } from "./loaders/loaderProdutoIndividual";
 
 // ADMIN
 import ManutencaoProdutos, {
@@ -41,6 +40,9 @@ import DashBoardAdmin from "./Pages/Admin/DashBoardAdmin/DashBoardAdmin";
 import AddProduto, {
   createProductAction,
 } from "./Pages/Admin/AddProduto/AddProduto";
+import EditProduto, {
+  editProdutoAction,
+} from "./Pages/Admin/EditProduto/EditProduto";
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +62,7 @@ export const router = createBrowserRouter([
       {
         path: "comprar/:id",
         element: <PaginaDoProduto />,
-        loader: loaderProduto,
+        loader: loaderProdutoIndividual,
       },
       { path: "carrinho", element: <PaginaCarrinho /> },
     ],
@@ -104,7 +106,12 @@ export const router = createBrowserRouter([
             element: <AddProduto />,
             action: createProductAction,
           },
-          { path: "edit/:code", element: <></> },
+          {
+            path: "edit/:code",
+            element: <EditProduto />,
+            loader: loaderProdutoIndividual,
+            action: editProdutoAction,
+          },
         ],
       },
     ],

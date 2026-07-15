@@ -3,6 +3,7 @@ import { api } from "../Config/axiosConfig";
 type FetchApiUploadProps = {
   route: string;
   formData: FormData;
+  method?: "post" | "put";
 };
 
 type MessageResponse = { message: string };
@@ -16,9 +17,10 @@ type FetchApiUploadResponse<TResponse> = {
 export async function fetchApiUpload<TResponse = MessageResponse>({
   route,
   formData,
+  method = "post",
 }: FetchApiUploadProps): Promise<FetchApiUploadResponse<TResponse>> {
   try {
-    const res = await api.post(`/${route}`, formData, {
+    const res = await api[method](`/${route}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

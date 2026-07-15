@@ -6,37 +6,38 @@ import type { FieldValues, Path, RegisterOptions } from "react-hook-form";
 import { FieldsValidation } from "./FieldsValidation";
 import Styles from "./Form.module.css";
 
-type FileFieldProps<T extends FieldValues, TName extends Path<T>> = {
+type ImageInputProps<T extends FieldValues, TName extends Path<T>> = {
   name: TName;
   label?: string;
   accept?: string;
   className?: string;
   placeholder?: string | React.ReactNode;
   imageContainerClassName?: string;
+  initialUrl?: string;
   style?: CSSProperties;
   validation?: keyof typeof FieldsValidation;
   maxSize?: number;
 };
 
-function isFileTypeAccepted(file: File, accept: string): boolean {
+function isImageTypeAccepted(image: File, accept: string): boolean {
   if (!accept || accept === "*") return true;
 
   const acceptedTypes = accept.split(",").map((type) => type.trim());
 
   return acceptedTypes.some((type) => {
     if (type.endsWith("/*")) {
-      return file.type.startsWith(type.replace("/*", "/"));
+      return image.type.startsWith(type.replace("/*", "/"));
     }
-    return file.type === type;
+    return image.type === type;
   });
 }
 
-function isFileSizeValid(file: File, maxSizeMB: number): boolean {
+function isImageSizeValid(image: File, maxSizeMB: number): boolean {
   const maxBytes = maxSizeMB * 1024 * 1024;
-  return file.size <= maxBytes;
+  return image.size <= maxBytes;
 }
 
-export default function FileField<
+export default function ImageInput<
   T extends FieldValues,
   TName extends Path<T>,
 >({
@@ -45,17 +46,18 @@ export default function FileField<
   accept = "image/*",
   className = "",
   imageContainerClassName = "",
+  initialUrl = "",
   placeholder,
   style,
   validation,
   maxSize = 5,
-}: FileFieldProps<T, TName>) {
+}: ImageInputProps<T, TName>) {
   const { control } = useFormContext<T>();
   const { errors } = useFormState<T>({ control, name });
 
-  const [fileName, setFileName] = useState<string>("");
-  const [fileError, setFileError] = useState<string>("");
-  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [imageName, setImageName] = useState<string>(initialUrl);
+  const [imageError, setImageError] = useState<string>("");
+  const [previewUrl, setPreviewUrl] = useState<string>(initialUrl);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -73,11 +75,11 @@ export default function FileField<
     };
   }, [previewUrl]);
 
-  const clearFile = (onChange: (value: File | null) => void) => {
+  const clearImage = (onChange: (value: File | null) => void) => {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-    setFileName("");
+    setImageName("");
     setPreviewUrl((current) => {
       if (current) URL.revokeObjectURL(current);
       return "";
@@ -85,46 +87,46 @@ export default function FileField<
     onChange(null);
   };
 
-  const acceptFile = (file: File, onChange: (value: File) => void) => {
-    setFileError("");
-    setFileName(file.name);
+  const acceptImage = (image: File, onChange: (value: File) => void) => {
+    setImageError("");
+    setImageName(image.name);
     setPreviewUrl((current) => {
       if (current) URL.revokeObjectURL(current);
-      return URL.createObjectURL(file);
+      return URL.createObjectURL(image);
     });
-    onChange(file);
+    onChange(image);
   };
 
-  const handleFile = (
-    file: File | undefined,
+  const handleImage = (
+    image: File | undefined,
     onChange: (value: File | null) => void,
   ) => {
-    if (!file) {
-      setFileError("");
-      clearFile(onChange);
+    if (!image) {
+      setImageError("");
+      clearImage(onChange);
       return;
     }
 
-    if (!isFileTypeAccepted(file, accept)) {
-      setFileError("Tipo de arquivo não permitido");
-      clearFile(onChange);
+    if (!isImageTypeAccepted(image, accept)) {
+      setImageError("Tipo de imagem não permitido");
+      clearImage(onChange);
       return;
     }
 
-    if (!isFileSizeValid(file, maxSize)) {
-      setFileError(`Arquivo muito grande. Máximo permitido: ${maxSize}MB`);
-      clearFile(onChange);
+    if (!isImageSizeValid(image, maxSize)) {
+      setImageError(`Imagem muito grande. Máximo permitido: ${maxSize}MB`);
+      clearImage(onChange);
       return;
     }
 
-    acceptFile(file, onChange);
+    acceptImage(image, onChange);
   };
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     onChange: (value: File | null) => void,
   ) => {
-    handleFile(e.target.files?.[0], onChange);
+    handleImage(e.target.files?.[0], onChange);
   };
 
   const handleDrop = (
@@ -134,15 +136,15 @@ export default function FileField<
     e.preventDefault();
     setIsDragging(false);
 
-    const file = e.dataTransfer.files?.[0];
+    const image = e.dataTransfer.files?.[0];
 
-    if (file && inputRef.current) {
+    if (image && inputRef.current) {
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
+      dataTransfer.items.add(image);
       inputRef.current.files = dataTransfer.files;
     }
 
-    handleFile(file, onChange);
+    handleImage(image, onChange);
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -153,6 +155,15 @@ export default function FileField<
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
+  };
+
+  const handleRemoveClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    onChange: (value: File | null) => void,
+  ) => {
+    e.stopPropagation();
+    setImageError("");
+    clearImage(onChange);
   };
 
   return (
@@ -166,6 +177,7 @@ export default function FileField<
 
           <div
             className={`${imageContainerClassName}`}
+            style={{ position: "relative" }}
             data-is-image-hovering={isDragging}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -176,26 +188,60 @@ export default function FileField<
               id={name}
               name={name}
               type="file"
+              accept={accept}
               ref={(el) => {
                 inputRef.current = el;
                 ref(el);
               }}
-              accept={accept}
               onChange={(e) => handleInputChange(e, onChange)}
             />
-            {previewUrl && <img src={previewUrl} alt={fileName} />}
 
-            {fileName ? (
-              <p>{fileName}</p>
+            {previewUrl && (
+              <RemoveImageButton
+                onClick={(e) => handleRemoveClick(e, onChange)}
+              />
+            )}
+
+            {previewUrl && <img src={previewUrl} alt={imageName} />}
+
+            {imageName ? (
+              <p>{imageName}</p>
             ) : (
               placeholder || <p>Arraste uma imagem ou clique para selecionar</p>
             )}
           </div>
 
-          {fileError && <p className={Styles.Error}>{fileError}</p>}
+          {imageError && <p className={Styles.Error}>{imageError}</p>}
           {errorMessage && <p className={Styles.Error}>{errorMessage}</p>}
         </div>
       )}
     />
+  );
+}
+
+function RemoveImageButton({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        width: "24px",
+        height: "24px",
+        borderRadius: "50%",
+        border: "none",
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        color: "#fff",
+        cursor: "pointer",
+      }}
+    >
+      ×
+    </button>
   );
 }

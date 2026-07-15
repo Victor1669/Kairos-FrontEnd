@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import { useLoaderData, type LoaderFunctionArgs } from "react-router-dom";
-
-import { produtoIndividualApi } from "@Products/ProdutoServices";
+import { useLoaderData } from "react-router-dom";
 
 import ImagensProduto from "@UI/PaginaDoProduto/ImagensProduto/ImagensProduto";
 import DescricaoProduto from "@UI/PaginaDoProduto/DescricaoProduto/DescricaoProduto";
@@ -10,6 +8,8 @@ import EscreverAvaliacao from "@UI/PaginaDoProduto/EscreverAvaliacao/EscreverAva
 import DadosAvaliacao from "@UI/PaginaDoProduto/DadosAvaliacao/DadosAvaliacao";
 
 import Styles from "./PaginaDoProduto.module.css";
+
+/* TODO: adicionar tipagem e validação */
 
 export default function PaginaDoProduto() {
   const produto = useLoaderData();
@@ -39,21 +39,4 @@ export default function PaginaDoProduto() {
       </section>
     </div>
   );
-}
-
-export async function loaderProduto({ params }: LoaderFunctionArgs) {
-  const { id } = params;
-
-  if (!id || isNaN(Number(id))) {
-    throw new Response(JSON.stringify({ message: "ID inválido" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const productId = Number(id);
-
-  const res = await produtoIndividualApi(productId);
-
-  return res.responseData;
 }

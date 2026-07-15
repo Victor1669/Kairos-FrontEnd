@@ -1,36 +1,39 @@
 import {
   redirect,
+  useLoaderData,
   useNavigate,
   type ActionFunctionArgs,
 } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-import { addProdutoApi } from "@Products/ProdutoServices";
-
-import Styles from "./AddProduto.module.css";
+import { editProdutoApi } from "@Products/ProdutoServices";
 
 import ProdutoForm from "@UI/ProdutoForm/ProdutoForm";
 
-export default function AddProduto() {
+import Styles from "./EditProduto.module.css";
+
+export default function EditProduto() {
+  const produto = useLoaderData();
+
   const navigateTo = useNavigate();
 
   return (
-    <section className={Styles.AddProduto}>
+    <div className={Styles.EditProduto}>
       <header>
         <Button variant="outline-dark" onClick={() => navigateTo(-1)}>
           {"<-"}
         </Button>
-        <h1>Novo produto</h1>
+        <h1>Editar produto</h1>
       </header>
-      <ProdutoForm />
-    </section>
+      <ProdutoForm defaultValues={produto} />
+    </div>
   );
 }
 
-export async function createProductAction({ request }: ActionFunctionArgs) {
+export async function editProdutoAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  await addProdutoApi(formData);
+  await editProdutoApi(formData);
 
   return redirect("/v1/");
 }
