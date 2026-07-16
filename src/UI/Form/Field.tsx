@@ -2,14 +2,9 @@ import { useState } from "react";
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 
 import type { CSSProperties, HTMLInputTypeAttribute } from "react";
-import type {
-  FieldPathValue,
-  FieldValues,
-  Path,
-  RegisterOptions,
-} from "react-hook-form";
+import type { FieldPathValue, FieldValues, Path } from "react-hook-form";
 
-import { FieldsValidation } from "./FieldsValidation";
+import { useFieldValidation } from "./FormValidationContext";
 
 import Styles from "./Form.module.css";
 
@@ -22,7 +17,6 @@ export type FormFieldProps<T extends FieldValues, TName extends Path<T>> = {
   value?: FieldPathValue<T, TName>;
   placeHolder?: string;
   iconSrc?: string;
-  validation?: keyof typeof FieldsValidation;
   hidePassword?: boolean;
 };
 
@@ -35,7 +29,6 @@ export default function Field<T extends FieldValues, TName extends Path<T>>({
   value,
   placeHolder,
   iconSrc,
-  validation,
   hidePassword,
 }: FormFieldProps<T, TName>) {
   const { control } = useFormContext<T>();
@@ -47,9 +40,7 @@ export default function Field<T extends FieldValues, TName extends Path<T>>({
 
   const errorMessage = errors[name]?.message;
 
-  const rules = validation
-    ? (FieldsValidation[validation] as RegisterOptions<T, TName>)
-    : undefined;
+  const rules = useFieldValidation<T, TName>(name);
 
   return (
     <Controller

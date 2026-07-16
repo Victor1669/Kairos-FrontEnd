@@ -1,9 +1,9 @@
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 import { Form } from "react-bootstrap";
 import type { CSSProperties } from "react";
-import type { FieldValues, Path, RegisterOptions } from "react-hook-form";
+import type { FieldValues, Path } from "react-hook-form";
 
-import { FieldsValidation } from "./FieldsValidation";
+import { useFieldValidation } from "./FormValidationContext";
 import Styles from "./Form.module.css";
 
 type Option = {
@@ -18,7 +18,7 @@ type SelectFieldProps<T extends FieldValues, TName extends Path<T>> = {
   placeholder?: string;
   className?: string;
   style?: CSSProperties;
-  validation?: keyof typeof FieldsValidation;
+  validation?: string;
   disabled?: boolean;
 };
 
@@ -39,9 +39,7 @@ export default function SelectField<
   const { errors } = useFormState<T>({ control, name });
 
   const errorMessage = errors[name]?.message as string | undefined;
-  const rules = validation
-    ? (FieldsValidation[validation] as RegisterOptions<T, TName>)
-    : undefined;
+  const rules = useFieldValidation<T, TName>(validation);
 
   return (
     <Controller

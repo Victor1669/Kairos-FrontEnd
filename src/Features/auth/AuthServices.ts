@@ -20,6 +20,7 @@ interface UserLoginApiBody {
 interface UserLoginApiReturn {
   data: {
     token: string;
+    refreshToken: string;
     user: Omit<CompleteUserType, "cpf" | "phone">;
   };
 }
@@ -32,4 +33,20 @@ async function userLoginApi(body: UserLoginApiBody) {
   });
 }
 
-export { registerUserApi, userLoginApi };
+interface RefreshTokenApiBody {
+  refreshToken: string;
+}
+
+interface RefreshTokenApiReturn extends RefreshTokenApiBody {
+  accessToken: string;
+}
+
+async function refreshTokenApi(body: RefreshTokenApiBody) {
+  return await fetchApi<RefreshTokenApiBody, RefreshTokenApiReturn>({
+    route: "auth/refresh",
+    method: "post",
+    body,
+  });
+}
+
+export { registerUserApi, userLoginApi, refreshTokenApi };

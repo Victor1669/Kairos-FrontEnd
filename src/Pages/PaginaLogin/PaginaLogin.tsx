@@ -4,7 +4,12 @@ import { Button } from "react-bootstrap";
 import { userLoginApi } from "@Auth/AuthServices";
 
 import { router } from "../../App";
-import { USER_TOKEN_KAIROS } from "@Utils/Storage";
+import { REFRESH_TOKEN_KAIROS, ACCESS_TOKEN_KAIROS } from "@Utils/Storage";
+
+import {
+  UserFieldsValidation,
+  type UserFields,
+} from "@Validations/UserFieldsValidation";
 
 import { createForm } from "@UI/Form/Form";
 import Logo from "@UI/Logo";
@@ -14,12 +19,11 @@ import Styles from "./PaginaLogin.module.css";
 import EmailIcon from "@Assets/icons/forms/email.png";
 import LockIcon from "@Assets/icons/lock.png";
 
-interface FormFields {
-  email: string;
-  password: string;
-}
+type UserLoginFields = Omit<UserFields, "name" | "cpf" | "phone">;
 
-const { Field, Form } = createForm<FormFields>();
+const { Field, Form } = createForm<UserLoginFields>({
+  validations: UserFieldsValidation,
+});
 
 export default function PaginaLogin() {
   return (
@@ -41,7 +45,6 @@ export default function PaginaLogin() {
           placeHolder="Digite seu email"
           name="email"
           iconSrc={EmailIcon}
-          validation="email"
         />
 
         <Field
@@ -50,7 +53,6 @@ export default function PaginaLogin() {
           placeHolder="Digite sua senha"
           name="password"
           iconSrc={LockIcon}
-          validation="password"
         />
 
         <Link to="/user/signup">Esqueceu sua senha?</Link>
@@ -66,13 +68,16 @@ export async function loginAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const dataObj: unknown = Object.fromEntries(formData);
 
-  const { responseData, success } = await userLoginApi(dataObj as FormFields);
+  const { responseData, success } = await userLoginApi(dataObj as UserFields);
 
   if (success) {
     const { data } = responseData;
 
     if (data.token.length) {
-      USER_TOKEN_KAIROS.set(data.token);
+      ACCESS_TOKEN_KAIROS.set(data.token);
+    }
+    if (data.refreshToken.length) {
+      REFRESH_TOKEN_KAIROS.set(data.refreshToken);
     }
 
     return router.navigate("/v1", { replace: true });

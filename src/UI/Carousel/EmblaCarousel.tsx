@@ -15,6 +15,7 @@ interface PropType<T> extends React.HTMLAttributes<HTMLDivElement> {
   render(item: T, index: number): React.ReactNode;
   errorElement?: React.ReactNode;
   options?: EmblaOptionsType;
+  draggable?: boolean;
 }
 
 export interface EmblaCarouselRef {
@@ -24,10 +25,16 @@ export interface EmblaCarouselRef {
 }
 
 function EmblaCarouselInner<T>(
-  { data, render, options, errorElement, ...divProps }: PropType<T>,
+  { data, render, options, errorElement, draggable, ...divProps }: PropType<T>,
   ref: React.ForwardedRef<EmblaCarouselRef>,
 ) {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    ...options,
+    watchDrag:
+      draggable === undefined
+        ? (api) => api.scrollSnapList().length > 1
+        : draggable,
+  });
 
   const {
     prevBtnDisabled,
@@ -46,8 +53,10 @@ function EmblaCarouselInner<T>(
     [emblaApi],
   );
 
-  if (typeof data === "string") {
-    return errorElement;
+  if (typeof data === "string" || !data.length) {
+    if (errorElement) {
+      return errorElement;
+    } else return null;
   }
 
   return (

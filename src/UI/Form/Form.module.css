@@ -4,7 +4,8 @@
 }
 
 .FieldContainer {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -31,6 +32,7 @@
 .Error {
   height: 1rem;
   color: red;
+  margin-bottom: 15px !important;
 }
 
 @media only screen and (max-width: 425px) {

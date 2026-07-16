@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 import type { CSSProperties, DragEvent, ChangeEvent } from "react";
-import type { FieldValues, Path, RegisterOptions } from "react-hook-form";
+import type { FieldValues, Path } from "react-hook-form";
 
-import { FieldsValidation } from "./FieldsValidation";
+import { useFieldValidation } from "./FormValidationContext";
 import Styles from "./Form.module.css";
 
 type ImageInputProps<T extends FieldValues, TName extends Path<T>> = {
@@ -15,7 +15,6 @@ type ImageInputProps<T extends FieldValues, TName extends Path<T>> = {
   imageContainerClassName?: string;
   initialUrl?: string;
   style?: CSSProperties;
-  validation?: keyof typeof FieldsValidation;
   maxSize?: number;
 };
 
@@ -49,7 +48,6 @@ export default function ImageInput<
   initialUrl = "",
   placeholder,
   style,
-  validation,
   maxSize = 5,
 }: ImageInputProps<T, TName>) {
   const { control } = useFormContext<T>();
@@ -63,9 +61,7 @@ export default function ImageInput<
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const errorMessage = errors[name]?.message as string | undefined;
-  const rules = validation
-    ? (FieldsValidation[validation] as RegisterOptions<T, TName>)
-    : undefined;
+  const rules = useFieldValidation<T, TName>(name);
 
   useEffect(() => {
     return () => {
@@ -212,7 +208,9 @@ export default function ImageInput<
           </div>
 
           {imageError && <p className={Styles.Error}>{imageError}</p>}
-          {errorMessage && <p className={Styles.Error}>{errorMessage}</p>}
+          <p className={Styles.Error} style={{ textAlign: "center" }}>
+            {errorMessage}
+          </p>
         </div>
       )}
     />

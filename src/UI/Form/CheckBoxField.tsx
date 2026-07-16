@@ -1,8 +1,8 @@
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 import type { CSSProperties, ReactNode } from "react";
-import type { FieldValues, Path, RegisterOptions } from "react-hook-form";
+import type { FieldValues, Path } from "react-hook-form";
 
-import { FieldsValidation } from "./FieldsValidation";
+import { useFieldValidation } from "./FormValidationContext";
 import Styles from "./Form.module.css";
 
 type CheckboxFieldProps<T extends FieldValues, TName extends Path<T>> = {
@@ -10,7 +10,6 @@ type CheckboxFieldProps<T extends FieldValues, TName extends Path<T>> = {
   label: ReactNode;
   className?: string;
   style?: CSSProperties;
-  validation?: keyof typeof FieldsValidation;
   disabled?: boolean;
 };
 
@@ -22,16 +21,13 @@ export default function CheckboxField<
   label,
   className = "",
   style,
-  validation,
   disabled = false,
 }: CheckboxFieldProps<T, TName>) {
   const { control } = useFormContext<T>();
   const { errors } = useFormState<T>({ control, name });
 
   const errorMessage = errors[name]?.message as string | undefined;
-  const rules = validation
-    ? (FieldsValidation[validation] as RegisterOptions<T, TName>)
-    : undefined;
+  const rules = useFieldValidation<T, TName>(name);
 
   return (
     <Controller
@@ -51,7 +47,7 @@ export default function CheckboxField<
             <span>{label}</span>
           </label>
 
-          {errorMessage && <p className={Styles.Error}>{errorMessage}</p>}
+          <p className={Styles.Error}>{errorMessage}</p>
         </div>
       )}
     />

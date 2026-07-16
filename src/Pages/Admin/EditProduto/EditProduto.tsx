@@ -2,6 +2,7 @@ import {
   redirect,
   useLoaderData,
   useNavigate,
+  useNavigation,
   type ActionFunctionArgs,
 } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -9,13 +10,21 @@ import { Button } from "react-bootstrap";
 import { editProdutoApi } from "@Products/ProdutoServices";
 
 import ProdutoForm from "@UI/ProdutoForm/ProdutoForm";
+import Carregamento from "@UI/Carregamento";
 
 import Styles from "./EditProduto.module.css";
 
 export default function EditProduto() {
   const produto = useLoaderData();
-
   const navigateTo = useNavigate();
+  const navigation = useNavigation();
+
+  const isLoading = navigation.state === "loading";
+  const isSubmitting = navigation.state === "submitting";
+
+  if (isSubmitting) {
+    return <Carregamento />;
+  }
 
   return (
     <div className={Styles.EditProduto}>
@@ -25,7 +34,7 @@ export default function EditProduto() {
         </Button>
         <h1>Editar produto</h1>
       </header>
-      <ProdutoForm defaultValues={produto} />
+      {isLoading ? <Carregamento /> : <ProdutoForm defaultValues={produto} />}
     </div>
   );
 }

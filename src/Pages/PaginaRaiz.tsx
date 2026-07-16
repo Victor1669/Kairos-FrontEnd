@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useAuthContext } from "@Auth/useAuthContext";
 
-import { USER_TOKEN_KAIROS } from "@Utils/Storage";
+import { ACCESS_TOKEN_KAIROS } from "@Utils/Storage";
 
 import Introducao from "@UI/PaginaRaiz/Introducao/Introducao";
 import SobreNos from "@UI/PaginaRaiz/SobreNos/SobreNos";
@@ -19,7 +19,7 @@ export default function PaginaRaiz() {
   const { login, logout } = useAuthContext();
 
   useEffect(() => {
-    USER_TOKEN_KAIROS.decode().then((token: unknown) => {
+    ACCESS_TOKEN_KAIROS.decode().then((token: unknown) => {
       try {
         const { iat, exp, ...user } = token as TokenType;
 

@@ -14,6 +14,10 @@ import CheckboxField from "./CheckBoxField";
 import ImageInput from "./ImageInput";
 import SelectField from "./SelectField";
 import CheckboxGroupField from "./CheckboxGroupField";
+import {
+  FormValidationProvider,
+  type FormValidations,
+} from "./FormValidationContext";
 
 import Styles from "./Form.module.css";
 
@@ -38,7 +42,7 @@ function FormInternal<T extends FieldValues>({
 }: FormInternalProps<T>) {
   const methods = useForm<T>({
     ...options,
-    reValidateMode: "onSubmit",
+    reValidateMode: "onBlur",
     mode: "onSubmit",
   });
   const submit = useSubmit();
@@ -84,7 +88,9 @@ function FormInternal<T extends FieldValues>({
   );
 }
 
-export const createForm = <T extends FieldValues>() => ({
+export const createForm = <T extends FieldValues>(options?: {
+  validations?: FormValidations;
+}) => ({
   Field: (props: FormFieldProps<T, Path<T>>) => <Field {...props} />,
 
   CheckboxField: (
@@ -103,5 +109,9 @@ export const createForm = <T extends FieldValues>() => ({
     props: React.ComponentProps<typeof SelectField<T, Path<T>>>,
   ) => <SelectField {...props} />,
 
-  Form: (props: FormInternalProps<T>) => <FormInternal {...props} />,
+  Form: (props: FormInternalProps<T>) => (
+    <FormValidationProvider validations={options?.validations ?? {}}>
+      <FormInternal {...props} />
+    </FormValidationProvider>
+  ),
 });

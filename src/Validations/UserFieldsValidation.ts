@@ -1,8 +1,8 @@
-import type { RegisterOptions, FieldPath, FieldValues } from "react-hook-form";
 import { isValidCPF } from "@Utils/isValidCPF";
 import { isValidEmail } from "@Utils/isValidEmail";
+import type { FormValidations } from "@UI/Form/FormValidationContext";
 
-interface FormFields {
+export interface UserFields {
   name: string;
   email: string;
   password: string;
@@ -10,11 +10,7 @@ interface FormFields {
   cpf: string;
 }
 
-type ValidationRules<T extends FieldValues = FormFields> = {
-  [K in FieldPath<T>]?: RegisterOptions<T, K>;
-};
-
-export const FieldsValidation: ValidationRules = {
+export const UserFieldsValidation: FormValidations = {
   name: {
     required: {
       value: true,

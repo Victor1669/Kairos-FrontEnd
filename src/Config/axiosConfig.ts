@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import { USER_TOKEN_KAIROS } from "@Utils/Storage";
+import { REFRESH_TOKEN_KAIROS, ACCESS_TOKEN_KAIROS } from "@Utils/Storage";
 
 const api = axios.create({
   baseURL: "http://localhost:3000",
@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await USER_TOKEN_KAIROS.get();
+  const token = await ACCESS_TOKEN_KAIROS.get();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -26,8 +26,13 @@ api.interceptors.response.use(
   async (error) => {
     toast.error(error.response.data.message);
 
-    if (error.response?.status === 401) {
-      // CASO DE ACESSO INVÁLIDO
+    const status = error.response?.status;
+
+    if (status === 401 || status === 403) {
+      Promise.all([
+        REFRESH_TOKEN_KAIROS.delete(),
+        ACCESS_TOKEN_KAIROS.delete(),
+      ]);
     }
 
     return Promise.reject(error);

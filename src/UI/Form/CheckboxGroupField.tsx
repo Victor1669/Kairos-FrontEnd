@@ -1,9 +1,9 @@
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 import { Form } from "react-bootstrap";
 import type { CSSProperties } from "react";
-import type { FieldValues, Path, RegisterOptions } from "react-hook-form";
+import type { FieldValues, Path } from "react-hook-form";
 
-import { FieldsValidation } from "./FieldsValidation";
+import { useFieldValidation } from "./FormValidationContext";
 import Styles from "./Form.module.css";
 
 type Option = {
@@ -17,7 +17,6 @@ type CheckboxGroupFieldProps<T extends FieldValues, TName extends Path<T>> = {
   options: Option[];
   className?: string;
   style?: CSSProperties;
-  validation?: keyof typeof FieldsValidation;
   disabled?: boolean;
   layout?: "vertical" | "horizontal";
 };
@@ -31,7 +30,6 @@ export default function CheckboxGroupField<
   options,
   className = "",
   style,
-  validation,
   disabled = false,
   layout = "vertical",
 }: CheckboxGroupFieldProps<T, TName>) {
@@ -39,9 +37,7 @@ export default function CheckboxGroupField<
   const { errors } = useFormState<T>({ control, name });
 
   const errorMessage = errors[name]?.message as string | undefined;
-  const rules = validation
-    ? (FieldsValidation[validation] as RegisterOptions<T, TName>)
-    : undefined;
+  const rules = useFieldValidation<T, TName>(name);
 
   return (
     <Controller
@@ -101,7 +97,7 @@ export default function CheckboxGroupField<
               })}
             </div>
 
-            {errorMessage && <p className={Styles.Error}>{errorMessage}</p>}
+            <p className={Styles.Error}>{errorMessage}</p>
           </div>
         );
       }}

@@ -8,21 +8,17 @@ import Styles from "./ProdutoForm.module.css";
 import ImageIcon from "@Assets/icons/admin/add-image.png";
 import SaveIcon from "@Assets/icons/admin/save.png";
 
-interface ProdutoFormFields {
-  nome: string;
-  color: string[];
-  description: string;
-  size: string[];
-  price: number;
-  image: File;
-}
+import {
+  ProductFieldsValidation,
+  type ProductFields,
+} from "@Validations/ProductFieldsValidation";
 
 interface DefaultValuesProp {
-  defaultValues?: ProdutoFormFields;
+  defaultValues?: ProductFields;
 }
 
 const { Field, Form, ImageInput, CheckboxGroupField } =
-  createForm<ProdutoFormFields>();
+  createForm<ProductFields>({ validations: ProductFieldsValidation });
 
 export default function ProdutoForm({ defaultValues }: DefaultValuesProp) {
   const navigateTo = useNavigate();

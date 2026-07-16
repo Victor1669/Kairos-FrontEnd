@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { router } from "../../App";
 
 import type { ContentUserType } from "./UserType";
-import { toast } from "react-toastify";
 
 interface AuthContextValues {
   user: ContentUserType;
@@ -23,6 +24,7 @@ function AuthContextProvider({ children }: { children: React.ReactNode }) {
 
   function logout() {
     setUser({} as ContentUserType);
+    router.navigate("/user/login");
   }
 
   function login(user: ContentUserType) {
@@ -47,24 +49,15 @@ function useAuthContext(requireAdmin = false) {
     throw new Error("AuthContext usado fora do AuthContextProvider!");
   }
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!requireAdmin) return;
 
     if (context.hasUserInfo && !context.isAdmin) {
-      navigate("/");
+      router.navigate("/");
 
       toast.info("Você não é admin! Explore os conteúdos do site.");
     }
-  }, [
-    location.pathname,
-    requireAdmin,
-    context.hasUserInfo,
-    context.isAdmin,
-    navigate,
-  ]);
+  }, [requireAdmin, context.hasUserInfo, context.isAdmin]);
 
   return context;
 }

@@ -7,16 +7,14 @@ import Styles from "./PaginaCadastro.module.css";
 
 import { createForm } from "@UI/Form/Form";
 import { registerUserApi } from "@Auth/AuthServices";
+import {
+  UserFieldsValidation,
+  type UserFields,
+} from "@Validations/UserFieldsValidation";
 
-interface FormFields {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  cpf: string;
-}
-
-const { Field, Form } = createForm<FormFields>();
+const { Field, Form } = createForm<UserFields>({
+  validations: UserFieldsValidation,
+});
 
 export default function PaginaCadastro() {
   return (
@@ -45,7 +43,6 @@ export default function PaginaCadastro() {
           type="text"
           placeHolder="Digite seu nome"
           name="name"
-          validation="name"
         />
 
         <Field
@@ -53,7 +50,6 @@ export default function PaginaCadastro() {
           type="email"
           placeHolder="Digite seu email"
           name="email"
-          validation="email"
         />
 
         <Field
@@ -61,7 +57,6 @@ export default function PaginaCadastro() {
           type="password"
           placeHolder="Digite sua senha"
           name="password"
-          validation="password"
         />
 
         <Field
@@ -69,7 +64,6 @@ export default function PaginaCadastro() {
           type="tel"
           placeHolder="Digite seu telefone"
           name="phone"
-          validation="phone"
         />
 
         <Field
@@ -77,7 +71,6 @@ export default function PaginaCadastro() {
           type="text"
           placeHolder="Digite seu CPF"
           name="cpf"
-          validation="cpf"
         />
 
         <Link to="/user/login">Já possui uma conta?</Link>
@@ -94,7 +87,7 @@ export async function registerAction({ request }: ActionFunctionArgs) {
   const dataObj: unknown = Object.fromEntries(formData);
 
   const { responseData, success } = await registerUserApi(
-    dataObj as FormFields,
+    dataObj as UserFields,
   );
 
   if (success) {
