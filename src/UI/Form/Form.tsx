@@ -9,15 +9,19 @@ import type {
   Path,
 } from "react-hook-form";
 
+import {
+  FormValidationProvider,
+  type FormValidations,
+} from "./FormValidationContext";
+
 import Field, { type FormFieldProps } from "./Field";
 import CheckboxField from "./CheckBoxField";
 import ImageInput from "./ImageInput";
 import SelectField from "./SelectField";
 import CheckboxGroupField from "./CheckboxGroupField";
-import {
-  FormValidationProvider,
-  type FormValidations,
-} from "./FormValidationContext";
+import RatingField from "./RatingField";
+import TextareaField from "./TextareaField";
+import HiddenField from "./HiddenField";
 
 import Styles from "./Form.module.css";
 
@@ -87,7 +91,6 @@ function FormInternal<T extends FieldValues>({
     </FormProvider>
   );
 }
-
 export const createForm = <T extends FieldValues>(options?: {
   validations?: FormValidations;
 }) => ({
@@ -108,6 +111,18 @@ export const createForm = <T extends FieldValues>(options?: {
   SelectField: (
     props: React.ComponentProps<typeof SelectField<T, Path<T>>>,
   ) => <SelectField {...props} />,
+
+  RatingField: (
+    props: React.ComponentProps<typeof RatingField<T, Path<T>>>,
+  ) => <RatingField {...props} />,
+
+  TextareaField: (
+    props: React.ComponentProps<typeof TextareaField<T, Path<T>>>,
+  ) => <TextareaField {...props} />,
+
+  HiddenField: (
+    props: React.ComponentProps<typeof HiddenField<T, Path<T>>>,
+  ) => <HiddenField {...props} />,
 
   Form: (props: FormInternalProps<T>) => (
     <FormValidationProvider validations={options?.validations ?? {}}>

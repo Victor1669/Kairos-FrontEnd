@@ -17,7 +17,10 @@ import AdminLayout from "./Layout/AdminLayout/AdminLayout";
 // PÁGINAS NORMAIS
 import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
 import PaginaRaiz from "./Pages/PaginaRaiz";
-import PaginaDoProduto from "./Pages/PaginaDoProduto/PaginaDoProduto";
+import PaginaDoProduto, {
+  paginaProdutoAction,
+  reviewLoader,
+} from "./Pages/PaginaDoProduto/PaginaDoProduto";
 
 import PaginaLogin, { loginAction } from "./Pages/PaginaLogin/PaginaLogin";
 import PaginaCadastro, {
@@ -63,7 +66,13 @@ export const router = createBrowserRouter([
       {
         path: "comprar/:id",
         element: <PaginaDoProduto />,
-        loader: loaderProdutoIndividual,
+        loader: async (args) => {
+          const produto = await loaderProdutoIndividual(args);
+          const reviews = await reviewLoader(args);
+
+          return { produto, reviews };
+        },
+        action: paginaProdutoAction,
       },
       { path: "carrinho", element: <PaginaCarrinho /> },
     ],

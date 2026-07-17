@@ -1,35 +1,40 @@
-import { useState } from "react";
 import { Button } from "react-bootstrap";
 
-import StarRating from "@UI/Stars/StarRating";
+import { createForm } from "@UI/Form/Form";
 
 import Styles from "./EscreverAvaliacao.module.css";
 
+import {
+  ReviewFieldsValidation,
+  type ReviewFields,
+} from "@Validations/ReviewFieldsValidation";
+
+const { Form, RatingField, TextareaField, HiddenField } =
+  createForm<ReviewFields>({
+    validations: ReviewFieldsValidation,
+  });
+
 export default function EscreverAvaliacao() {
-  const [stars, setStars] = useState(0);
-  const [text, setText] = useState("");
-
-  function handleSendRating(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    console.log(stars, text);
-  }
-
   return (
-    <form onSubmit={handleSendRating} className={Styles.EscreverAvaliacao}>
+    <Form
+      method="post"
+      className={Styles.EscreverAvaliacao}
+      options={{
+        defaultValues: { intent: "post-review", description: "", stars: 0 },
+      }}
+    >
       <h4>Avalie você mesmo</h4>
-      <StarRating size={40} onSetRating={setStars} />
-      <textarea
-        id="escreverAvaliacao"
-        name="escreverAvaliacao"
-        placeholder="Escreva sua avaliação..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+      <HiddenField name="intent" />
+      <RatingField name="stars" size={40} />
+      <TextareaField
+        name="description"
+        placeHolder="Escreva sua avaliação..."
         rows={5}
       />
+
       <Button type="submit" variant="dark">
         Enviar
       </Button>
-    </form>
+    </Form>
   );
 }

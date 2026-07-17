@@ -3,32 +3,34 @@ import RatingRow from "../RatingRow/RatingRow";
 
 import Styles from "./DadosAvaliacao.module.css";
 
-import type { ProdutoType } from "@Products/ProdutoType";
+import type { ReviewType } from "@Review/ReviewType";
 
-export default function DadosAvaliacao({ produto }: { produto: ProdutoType }) {
+export default function DadosAvaliacao({ reviews }: { reviews: ReviewType[] }) {
+  const totalAvaliacoes = reviews.length;
+
+  const mediaAvaliacoes =
+    reviews.reduce((prev, curr) => prev + curr.stars, 0) / totalAvaliacoes;
+
   return (
     <div className={Styles.DadosAvaliacao}>
       <h3>Avaliações</h3>
       <div className={Styles.StarRatingContainer}>
-        <p>{4}</p>
+        <p>{Math.floor(mediaAvaliacoes)}</p>
         <StarRating locked defaultRating={4} size={40} />
-        <p>({150} avaliações)</p>
+        <p>{totalAvaliacoes} avaliações</p>
       </div>
-      <RatingRow valor={8} maximo={10}>
-        5
-      </RatingRow>
-      <RatingRow valor={6} maximo={10}>
-        4
-      </RatingRow>
-      <RatingRow valor={4} maximo={10}>
-        3
-      </RatingRow>
-      <RatingRow valor={2} maximo={10}>
-        2
-      </RatingRow>
-      <RatingRow valor={1} maximo={10}>
-        1
-      </RatingRow>
+
+      {[5, 4, 3, 2, 1].map((num) => {
+        const totalEspecifico = reviews.filter(
+          (review) => review.stars === num,
+        ).length;
+
+        return (
+          <RatingRow key={num} valor={totalEspecifico} maximo={totalAvaliacoes}>
+            {num}
+          </RatingRow>
+        );
+      })}
     </div>
   );
 }

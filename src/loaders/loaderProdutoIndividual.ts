@@ -15,16 +15,19 @@ export async function loaderProdutoIndividual({ params }: LoaderFunctionArgs) {
     });
   }
 
-  if (id && isNaN(Number(id))) {
-    throw new Response(JSON.stringify({ message: "ID inválido" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const res = id
+  const { responseData, success } = id
     ? await produtoIndividualPorIdApi(Number(id))
     : await produtoIndividualPorCodeApi(code || "");
 
-  return res.responseData;
+  if (!success) {
+    throw new Response(
+      JSON.stringify({ message: "Erro ao buscar produto: " + responseData }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  return responseData;
 }

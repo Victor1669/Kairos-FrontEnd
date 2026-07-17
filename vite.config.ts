@@ -15,6 +15,7 @@ export default defineConfig({
       "@Hooks": path.resolve(__dirname, "./src/Hooks"),
       "@Contexts": path.resolve(__dirname, "./src/Contexts"),
       "@Cart": path.resolve(__dirname, "./src/Features/carrinho"),
+      "@Review": path.resolve(__dirname, "./src/Features/reviews"),
       "@Auth": path.resolve(__dirname, "./src/Features/auth"),
       "@Products": path.resolve(__dirname, "./src/Features/produtos"),
     },

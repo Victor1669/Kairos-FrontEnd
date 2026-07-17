@@ -8,7 +8,8 @@
   border-radius: 15px;
 
   span {
-    display: block;
+    display: grid;
+    place-items: center;
     width: 50px;
     height: 50px;
     border-radius: 50%;

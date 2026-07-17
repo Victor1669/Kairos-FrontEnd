@@ -4,11 +4,11 @@ export default function Carregamento() {
   return (
     <div
       style={{
-        flex: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        height: "60vh",
         scale: 2,
         gap: 15,
       }}

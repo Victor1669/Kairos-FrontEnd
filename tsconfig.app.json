@@ -27,6 +27,7 @@
       "@Contexts/*": ["src/Contexts/*"],
       "@Cart/*": ["src/Features/carrinho/*"],
       "@Products/*": ["src/Features/produtos/*"],
+      "@Review/*": ["src/Features/reviews/*"],
       "@Auth/*": ["src/Features/auth/*"]
     }
   },

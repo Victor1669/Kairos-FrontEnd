@@ -9,7 +9,7 @@ export default function RatingRow({
 }: {
   valor: number;
   maximo: number;
-  children: string;
+  children: React.ReactNode;
 }) {
   const percentage = (valor / maximo) * 100;
 

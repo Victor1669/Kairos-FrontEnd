@@ -1,31 +1,25 @@
 import { Star } from "@UI/Stars/StarRating";
+
 import Styles from "./Avaliacao.module.css";
 
-import type { AvaliacaoType } from "@Cart/CartType";
+import type { ReviewType } from "@Review/ReviewType";
 
-export default function Avaliacao({ avaliacao }: { avaliacao: AvaliacaoType }) {
-  const {
-    imagem_usuario,
-    avaliacao: estrelas,
-    nome_usuario,
-    comentario,
-  } = avaliacao;
+export default function Avaliacao({ avaliacao }: { avaliacao: ReviewType }) {
+  const { description, id, stars, user } = avaliacao;
 
   return (
     <div className={Styles.Avaliacao}>
       <div className={Styles.starContainer}>
-        <b>{estrelas}</b>
+        <b>{stars}</b>
         <Star full />
       </div>
 
       <div className={Styles.Usuario}>
-        <span>
-          {imagem_usuario.length ? <img src={imagem_usuario} /> : <></>}
-        </span>
+        <span>{id}</span>
 
         <div style={{ display: "grid" }}>
-          <b>{nome_usuario}</b>
-          <p>{comentario}</p>
+          <b>{user}</b>
+          <p>{description}</p>
         </div>
       </div>
     </div>
