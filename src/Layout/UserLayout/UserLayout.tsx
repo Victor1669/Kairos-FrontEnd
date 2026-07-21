@@ -13,7 +13,7 @@ export default function UserLayout() {
   return (
     <main className={Styles.UserLayout}>
       {isChecking ? <Carregamento /> : <Outlet />}
-      <Logo />
+      <Logo className={Styles.Logo} />
     </main>
   );
 }

@@ -11,7 +11,7 @@ export default function RatingRow({
   maximo: number;
   children: React.ReactNode;
 }) {
-  const percentage = (valor / maximo) * 100;
+  const percentage = (valor / maximo) * 100 || 0;
 
   return (
     <div className={Styles.RatingRow}>

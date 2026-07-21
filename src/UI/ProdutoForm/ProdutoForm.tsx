@@ -20,7 +20,16 @@ interface DefaultValuesProp {
 const { Field, Form, ImageInput, CheckboxGroupField } =
   createForm<ProductFields>({ validations: ProductFieldsValidation });
 
-export default function ProdutoForm({ defaultValues }: DefaultValuesProp) {
+export default function ProdutoForm({
+  defaultValues = {
+    color: [],
+    description: "",
+    image: null,
+    nome: "",
+    price: 0,
+    size: [],
+  },
+}: DefaultValuesProp) {
   const navigateTo = useNavigate();
 
   const SIZE_OPTIONS = [

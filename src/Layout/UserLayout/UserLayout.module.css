@@ -1,25 +1,28 @@
 .UserLayout {
   display: grid;
-  place-items: center;
   grid-template-columns: repeat(2, 1fr);
+  width: 100%;
 
   background-color: var(--primary-color);
 
-  padding: 20px;
+  padding: 60px;
 
-  /* LOGO */
-  & > img {
-    width: 300px !important;
+  & > :first-child {
+    place-self: center;
   }
+}
+.Logo {
+  width: 300px !important;
+  margin-inline: auto;
+  margin-top: 30dvh;
 }
 
 @media only screen and (max-width: 768px) {
   .UserLayout {
     grid-template-columns: 1fr;
-
-    & > img {
-      display: none;
-    }
+  }
+  .Logo {
+    display: none;
   }
 }
 

@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 
-import { useCartContext } from "../../../Features/carrinho/useCartContext";
+import { useCartContext } from "@Cart/useCartContext";
 
 import Styles from "./ProdutoCarrinho.module.css";
 

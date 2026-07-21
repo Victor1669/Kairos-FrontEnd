@@ -1,10 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
-import {
-  adicionarItemAoCartStorage,
-  removerItemDoCartStorage,
-  pegarProdutosStorage,
-} from "./cartStorageHelpers";
+import { createContext, useContext, useState } from "react";
 
 import type { ProdutoType, CartProductType } from "@Products/ProdutoType";
 
@@ -24,10 +18,6 @@ function CartContextProvider({ children }: { children: React.ReactNode }) {
   const [produtosNoCarrinho, setProdutosNoCarrinho] = useState<
     CartProductType[]
   >([]);
-
-  useEffect(() => {
-    pegarProdutosStorage().then((produtos) => setProdutosNoCarrinho(produtos));
-  }, []);
 
   function aumentarQtdItemIndividual(produtoId: number) {
     const qtdFinal = pegarProdutoPeloId(produtoId)?.quantidade || 0;
@@ -64,13 +54,11 @@ function CartContextProvider({ children }: { children: React.ReactNode }) {
     if (produtoExistente) {
       aumentarQtdItemIndividual(produtoExistente.id);
     } else {
-      adicionarItemAoCartStorage(produto);
       setProdutosNoCarrinho((ps) => [...ps, { ...produto, quantidade: 1 }]);
     }
   }
 
   function removerProdutoDoCarrinho(produto: CartProductType) {
-    removerItemDoCartStorage(produto);
     setProdutosNoCarrinho((ps) => ps.filter((p) => p.id !== produto.id));
   }
 

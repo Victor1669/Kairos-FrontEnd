@@ -1,11 +1,11 @@
 import type { SubmitHandler } from "react-hook-form";
 
-import { useCartContext } from "../../../Features/carrinho/useCartContext";
+import { useCartContext } from "@Cart/useCartContext";
 
 import { createForm } from "@UI/Form/Form";
 const { Field, Form } = createForm<FieldValues>();
 
-import { formatarParaDinheiro } from "../../../Utils/formatarParaDinheiro";
+import { formatarParaDinheiro } from "@Utils/formatarParaDinheiro";
 
 import Styles from "./CarrinhoForm.module.css";
 

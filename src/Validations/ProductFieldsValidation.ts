@@ -6,7 +6,7 @@ export interface ProductFields {
   description: string;
   size: string[];
   price: number;
-  image: File;
+  image: File | null;
 }
 
 export const ProductFieldsValidation: FormValidations = {

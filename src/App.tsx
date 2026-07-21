@@ -9,44 +9,20 @@ import { useCartContext } from "@Cart/useCartContext";
 // HOOKS
 import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
+// ROTAS
+import { adminRoutes } from "@Routes/adminRoutes";
+import { contentRoutes } from "@Routes/contentRoutes";
+
 // LAYOUT
-import ContentLayout from "./Layout/ContentLayout";
 import UserLayout from "./Layout/UserLayout/UserLayout";
-import AdminLayout from "./Layout/AdminLayout/AdminLayout";
 
-// PÁGINAS NORMAIS
-import PaginaCarrinho from "./Pages/PaginaCarrinho/PaginaCarrinho";
-import PaginaRaiz from "./Pages/PaginaRaiz";
-import PaginaDoProduto, {
-  paginaProdutoAction,
-  reviewLoader,
-} from "./Pages/PaginaDoProduto/PaginaDoProduto";
-
-import PaginaLogin, { loginAction } from "./Pages/PaginaLogin/PaginaLogin";
 import PaginaCadastro, {
   registerAction,
-} from "./Pages/PaginaCadastro/PaginaCadastro";
+} from "./Pages/User/PaginaCadastro/PaginaCadastro";
+import PaginaLogin, { loginAction } from "@Pages/User/PaginaLogin/PaginaLogin";
 
 // ESPECIAIS
-import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
-
-// LOADERS
-import { loaderProdutos } from "./loaders/loaderProdutos";
-import { loaderProdutoIndividual } from "./loaders/loaderProdutoIndividual";
-
-// ADMIN
-import ManutencaoProdutos, {
-  deleteProductAction,
-} from "./Pages/Admin/ManutencaoProdutos/ManutencaoProdutos";
-import ManutencaoPedidos from "./Pages/Admin/ManutencaoPedidos/ManutencaoPedidos";
-import DashBoardAdmin from "./Pages/Admin/DashBoardAdmin/DashBoardAdmin";
-import AddProduto, {
-  createProductAction,
-} from "./Pages/Admin/AddProduto/AddProduto";
-import EditProduto, {
-  editProdutoAction,
-} from "./Pages/Admin/EditProduto/EditProduto";
 
 export const router = createBrowserRouter([
   {
@@ -54,28 +30,6 @@ export const router = createBrowserRouter([
     element: <Navigate to="/v1" replace />,
     index: true,
     errorElement: <ErrorPage />,
-  },
-
-  {
-    path: "/v1",
-    element: <ContentLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <PaginaRaiz />, loader: loaderProdutos },
-      { path: "*", element: <PageNotFound /> },
-      {
-        path: "comprar/:id",
-        element: <PaginaDoProduto />,
-        loader: async (args) => {
-          const produto = await loaderProdutoIndividual(args);
-          const reviews = await reviewLoader(args);
-
-          return { produto, reviews };
-        },
-        action: paginaProdutoAction,
-      },
-      { path: "carrinho", element: <PaginaCarrinho /> },
-    ],
   },
   {
     path: "/user",
@@ -86,46 +40,8 @@ export const router = createBrowserRouter([
       { path: "signup", element: <PaginaCadastro />, action: registerAction },
     ],
   },
-  {
-    path: "/admin",
-    element: <AdminLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <DashBoardAdmin /> },
-      {
-        path: "orders",
-        children: [
-          {
-            index: true,
-            element: <ManutencaoPedidos />,
-          },
-          { path: ":id", element: <></> },
-        ],
-      },
-      {
-        path: "products",
-        children: [
-          {
-            index: true,
-            element: <ManutencaoProdutos />,
-            loader: loaderProdutos,
-            action: deleteProductAction,
-          },
-          {
-            path: "new",
-            element: <AddProduto />,
-            action: createProductAction,
-          },
-          {
-            path: "edit/:code",
-            element: <EditProduto />,
-            loader: loaderProdutoIndividual,
-            action: editProdutoAction,
-          },
-        ],
-      },
-    ],
-  },
+  contentRoutes,
+  adminRoutes,
 ]);
 
 export default function App() {

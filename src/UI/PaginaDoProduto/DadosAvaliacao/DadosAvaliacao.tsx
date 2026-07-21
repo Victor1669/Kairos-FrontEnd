@@ -9,14 +9,21 @@ export default function DadosAvaliacao({ reviews }: { reviews: ReviewType[] }) {
   const totalAvaliacoes = reviews.length;
 
   const mediaAvaliacoes =
-    reviews.reduce((prev, curr) => prev + curr.stars, 0) / totalAvaliacoes;
+    Math.floor(
+      reviews.reduce((prev, curr) => prev + curr.stars, 0) / totalAvaliacoes,
+    ) || 0;
 
   return (
     <div className={Styles.DadosAvaliacao}>
       <h3>Avaliações</h3>
       <div className={Styles.StarRatingContainer}>
-        <p>{Math.floor(mediaAvaliacoes)}</p>
-        <StarRating locked defaultRating={4} size={40} />
+        <p>{mediaAvaliacoes} estrelas</p>
+        <StarRating
+          key={mediaAvaliacoes}
+          locked
+          defaultRating={mediaAvaliacoes}
+          size={40}
+        />
         <p>{totalAvaliacoes} avaliações</p>
       </div>
 

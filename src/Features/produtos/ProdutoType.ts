@@ -1,6 +1,6 @@
 import type { ReviewType } from "@Review/ReviewType";
 
-type TamanhoProduto = "P" | "M" | "G" | "GG" | "XGG";
+export type TamanhoProduto = "P" | "M" | "G" | "GG" | "XGG";
 
 export interface FotosProdutoType {
   id: number;

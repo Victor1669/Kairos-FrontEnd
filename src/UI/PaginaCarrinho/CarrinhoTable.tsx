@@ -1,4 +1,4 @@
-import { useCartContext } from "../../Features/carrinho/useCartContext";
+import { useCartContext } from "@Cart/useCartContext";
 
 import Table from "@UI/Table";
 import ProdutoCarrinho from "./ProdutoCarrinho/ProdutoCarrinho";

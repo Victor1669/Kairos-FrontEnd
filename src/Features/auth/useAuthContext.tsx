@@ -17,6 +17,7 @@ const AuthContext = createContext<AuthContextValues | undefined>(undefined);
 
 function AuthContextProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<ContentUserType>({} as ContentUserType);
+  const pathname = router.state.location.pathname;
 
   const hasUserInfo =
     user.email !== undefined && user.id !== 0 && user.role !== null;
@@ -24,7 +25,10 @@ function AuthContextProvider({ children }: { children: React.ReactNode }) {
 
   function logout() {
     setUser({} as ContentUserType);
-    router.navigate("/user/login");
+
+    if (!pathname.startsWith("/user")) {
+      router.navigate("/user/login");
+    }
   }
 
   function login(user: ContentUserType) {

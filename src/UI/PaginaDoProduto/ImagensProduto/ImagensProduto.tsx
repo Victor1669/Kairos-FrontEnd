@@ -24,7 +24,14 @@ export default function ImagensProduto({
         ref={carouselRef}
         className={Styles.Carrossel}
         data={imagens}
-        render={(item, index) => <img key={index} src={item.img_url} alt="" />}
+        render={(item, index) => (
+          <img
+            style={{ maxWidth: 300 }}
+            key={index}
+            src={item.img_url}
+            alt=""
+          />
+        )}
       />
       <div className={Styles.SmallImages}>
         {/* Renderiza apenas até a 4ª miniatura ou o limite total */}
