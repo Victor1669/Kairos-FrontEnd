@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { router } from "../App";
+
 import { refreshTokenApi } from "@Auth/AuthServices";
 
 import { ACCESS_TOKEN_KAIROS, REFRESH_TOKEN_KAIROS } from "@Utils/Storage";
@@ -8,6 +10,7 @@ import { useAuthContext } from "@Auth/useAuthContext";
 export function useRefreshToken() {
   const { logout } = useAuthContext();
   const [isChecking, setIsChecking] = useState(true);
+  const pathname = router.state.location.pathname;
 
   useEffect(() => {
     let isMounted = true;
@@ -44,12 +47,14 @@ export function useRefreshToken() {
       setIsChecking(false);
     }
 
-    validateSession();
+    if (!pathname.startsWith("/user")) {
+      validateSession();
+    } else setIsChecking(false);
 
     return () => {
       isMounted = false;
     };
-  }, [logout]);
+  }, [logout, pathname]);
 
   return { isChecking };
 }

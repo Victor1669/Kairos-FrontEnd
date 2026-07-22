@@ -18,7 +18,6 @@ type SelectFieldProps<T extends FieldValues, TName extends Path<T>> = {
   placeholder?: string;
   className?: string;
   style?: CSSProperties;
-  validation?: string;
   disabled?: boolean;
 };
 
@@ -32,14 +31,20 @@ export default function SelectField<
   placeholder = "Selecione...",
   className = "",
   style,
-  validation,
   disabled = false,
 }: SelectFieldProps<T, TName>) {
   const { control } = useFormContext<T>();
   const { errors } = useFormState<T>({ control, name });
 
   const errorMessage = errors[name]?.message as string | undefined;
-  const rules = useFieldValidation<T, TName>(validation);
+  const rules = useFieldValidation<T, TName>(name);
+
+  const isRequired =
+    typeof rules?.required === "object" && rules.required !== null
+      ? "value" in rules.required
+        ? rules.required.value
+        : false
+      : !!rules?.required;
 
   return (
     <Controller
@@ -49,7 +54,11 @@ export default function SelectField<
       render={({ field: { onChange, onBlur, value, ref } }) => (
         <div className={`${Styles.FieldContainer} ${className}`} style={style}>
           {label && (
-            <label style={{ textTransform: "capitalize" }} htmlFor={name}>
+            <label
+              data-is-required={isRequired}
+              style={{ textTransform: "capitalize" }}
+              htmlFor={name}
+            >
               {label}
             </label>
           )}

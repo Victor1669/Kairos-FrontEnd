@@ -42,6 +42,7 @@ export default function Navbar() {
 
           <Dropdown.Menu>
             <Dropdown.Item href="#">Perfil</Dropdown.Item>
+            <Dropdown.Item href="/user/address">Endereço</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item href="/user/login" onClick={logout}>
               Logout

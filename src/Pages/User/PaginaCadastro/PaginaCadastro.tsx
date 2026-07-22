@@ -10,7 +10,7 @@ import { registerUserApi } from "@Auth/AuthServices";
 import {
   UserFieldsValidation,
   type UserFields,
-} from "@Validations/UserFieldsValidation";
+} from "@Auth/UserFieldsValidation";
 
 const { Field, Form } = createForm<UserFields>({
   validations: UserFieldsValidation,

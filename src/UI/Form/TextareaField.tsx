@@ -33,6 +33,13 @@ export default function TextareaField<
   const errorMessage = errors[name]?.message as string | undefined;
   const rules = useFieldValidation<T, TName>(name);
 
+  const isRequired =
+    typeof rules?.required === "object" && rules.required !== null
+      ? "value" in rules.required
+        ? rules.required.value
+        : false
+      : !!rules?.required;
+
   return (
     <Controller
       control={control}
@@ -41,7 +48,11 @@ export default function TextareaField<
       render={({ field: { onChange, onBlur, value, ref } }) => (
         <div className={`${Styles.FieldContainer} ${className}`} style={style}>
           {label && (
-            <label style={{ textTransform: "capitalize" }} htmlFor={name}>
+            <label
+              data-is-required={isRequired}
+              style={{ textTransform: "capitalize" }}
+              htmlFor={name}
+            >
               {label}
             </label>
           )}

@@ -11,7 +11,7 @@ import DadosAvaliacao from "@UI/PaginaDoProduto/DadosAvaliacao/DadosAvaliacao";
 
 import Styles from "./PaginaDoProduto.module.css";
 
-import type { ReviewFields } from "@Validations/ReviewFieldsValidation";
+import type { ReviewFields } from "@Review/ReviewFieldsValidation";
 import type { ReviewType } from "@Review/ReviewType";
 import type { ProdutoType } from "@Products/ProdutoType";
 

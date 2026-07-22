@@ -11,7 +11,7 @@ import SaveIcon from "@Assets/icons/admin/save.png";
 import {
   ProductFieldsValidation,
   type ProductFields,
-} from "@Validations/ProductFieldsValidation";
+} from "@Products/ProductFieldsValidation";
 
 interface DefaultValuesProp {
   defaultValues?: ProductFields;

@@ -1,4 +1,5 @@
 .DescricaoProduto {
+  grid-area: descricao;
   display: grid;
   place-self: center;
   width: 420px;

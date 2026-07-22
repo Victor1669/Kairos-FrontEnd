@@ -34,11 +34,17 @@ export default function RatingField<
 }: RatingFieldProps<T, TName>) {
   const { control } = useFormContext<T>();
   const { errors } = useFormState<T>({ control, name });
+  const [tempRating, setTempRating] = useState<number>(0);
 
   const errorMessage = errors[name]?.message as string | undefined;
   const rules = useFieldValidation<T, TName>(name);
 
-  const [tempRating, setTempRating] = useState<number>(0);
+  const isRequired =
+    typeof rules?.required === "object" && rules.required !== null
+      ? "value" in rules.required
+        ? rules.required.value
+        : false
+      : !!rules?.required;
 
   return (
     <Controller
@@ -68,7 +74,7 @@ export default function RatingField<
             className={`${Styles.FieldContainer} ${className}`}
             style={style}
           >
-            {label && <label>{label}</label>}
+            {label && <label data-is-required={isRequired}>{label}</label>}
 
             <div style={starContainerStyle}>
               {Array.from({ length: maxRating }, (_, i) => (

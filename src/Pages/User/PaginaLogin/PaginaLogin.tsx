@@ -9,7 +9,7 @@ import { REFRESH_TOKEN_KAIROS, ACCESS_TOKEN_KAIROS } from "@Utils/Storage";
 import {
   UserFieldsValidation,
   type UserFields,
-} from "@Validations/UserFieldsValidation";
+} from "@Auth/UserFieldsValidation";
 
 import { createForm } from "@UI/Form/Form";
 import Logo from "@UI/Logo";

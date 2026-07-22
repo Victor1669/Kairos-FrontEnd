@@ -42,6 +42,13 @@ export default function Field<T extends FieldValues, TName extends Path<T>>({
 
   const rules = useFieldValidation<T, TName>(name);
 
+  const isRequired =
+    typeof rules?.required === "object" && rules.required !== null
+      ? "value" in rules.required
+        ? rules.required.value
+        : false
+      : !!rules?.required;
+
   return (
     <Controller
       control={control}
@@ -52,7 +59,11 @@ export default function Field<T extends FieldValues, TName extends Path<T>>({
       }) => (
         <div className={`${Styles.FieldContainer} ${className}`} style={style}>
           {type !== "hidden" && (
-            <label style={{ textTransform: "capitalize" }} htmlFor={name}>
+            <label
+              data-is-required={isRequired}
+              style={{ textTransform: "capitalize" }}
+              htmlFor={name}
+            >
               {label}
             </label>
           )}

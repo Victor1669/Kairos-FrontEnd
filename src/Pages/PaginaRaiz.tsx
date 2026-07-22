@@ -9,6 +9,7 @@ import SobreNos from "@UI/PaginaRaiz/SobreNos/SobreNos";
 import CarrosselRaiz from "@UI/PaginaRaiz/CarrosselRaiz/CarrosselRaiz";
 
 import type { ContentUserType } from "@Auth/UserType";
+import { useLocation } from "react-router-dom";
 
 interface TokenType extends ContentUserType {
   iat: string;
@@ -17,6 +18,16 @@ interface TokenType extends ContentUserType {
 
 export default function PaginaRaiz() {
   const { login, logout } = useAuthContext();
+  const location = useLocation();
+
+  useEffect(() => {
+    const estadoRecebido = location.state;
+    if (estadoRecebido) {
+      console.log(estadoRecebido);
+    } else {
+      console.log("Nenhum state recebido (acesso direto ou state vazio)");
+    }
+  }, [location.state]);
 
   useEffect(() => {
     ACCESS_TOKEN_KAIROS.decode().then((token: unknown) => {

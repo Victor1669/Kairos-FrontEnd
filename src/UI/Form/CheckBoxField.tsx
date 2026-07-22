@@ -29,6 +29,13 @@ export default function CheckboxField<
   const errorMessage = errors[name]?.message as string | undefined;
   const rules = useFieldValidation<T, TName>(name);
 
+  const isRequired =
+    typeof rules?.required === "object" && rules.required !== null
+      ? "value" in rules.required
+        ? rules.required.value
+        : false
+      : !!rules?.required;
+
   return (
     <Controller
       control={control}
@@ -36,7 +43,7 @@ export default function CheckboxField<
       rules={rules}
       render={({ field: { onChange, value, ref } }) => (
         <div className={`${Styles.FieldContainer} ${className}`} style={style}>
-          <label>
+          <label data-is-required={isRequired}>
             <input
               type="checkbox"
               ref={ref}

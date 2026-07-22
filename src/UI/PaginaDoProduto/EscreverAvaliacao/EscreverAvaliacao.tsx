@@ -7,7 +7,7 @@ import Styles from "./EscreverAvaliacao.module.css";
 import {
   ReviewFieldsValidation,
   type ReviewFields,
-} from "@Validations/ReviewFieldsValidation";
+} from "@Review/ReviewFieldsValidation";
 
 const { Form, RatingField, TextareaField, HiddenField } =
   createForm<ReviewFields>({

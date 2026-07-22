@@ -4,22 +4,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { useCartContext } from "@Cart/useCartContext";
-
 // HOOKS
+import { useCartContext } from "@Cart/useCartContext";
 import { useSaveOnUnload } from "./Hooks/useSaveOnUnload";
 
 // ROTAS
 import { adminRoutes } from "@Routes/adminRoutes";
 import { contentRoutes } from "@Routes/contentRoutes";
-
-// LAYOUT
-import UserLayout from "./Layout/UserLayout/UserLayout";
-
-import PaginaCadastro, {
-  registerAction,
-} from "./Pages/User/PaginaCadastro/PaginaCadastro";
-import PaginaLogin, { loginAction } from "@Pages/User/PaginaLogin/PaginaLogin";
+import { userRoutes } from "@Routes/userRoutes";
 
 // ESPECIAIS
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
@@ -31,15 +23,7 @@ export const router = createBrowserRouter([
     index: true,
     errorElement: <ErrorPage />,
   },
-  {
-    path: "/user",
-    element: <UserLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { path: "login", element: <PaginaLogin />, action: loginAction },
-      { path: "signup", element: <PaginaCadastro />, action: registerAction },
-    ],
-  },
+  userRoutes,
   contentRoutes,
   adminRoutes,
 ]);

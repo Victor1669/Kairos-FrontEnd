@@ -33,48 +33,42 @@ export default function DescricaoProduto({
   }
 
   return (
-    <section style={{ gridArea: "descricao" }}>
-      <div className={Styles.DescricaoProduto}>
-        <div className={Styles.Descricao}>
-          <h1>{nome}</h1>
-          <p>{description}</p>
-        </div>
+    <section className={Styles.DescricaoProduto}>
+      <div className={Styles.Descricao}>
+        <h1>{nome}</h1>
+        <p>{description}</p>
+      </div>
 
-        <div className={Styles.Cores}>
-          <p>Cores disponíveis</p>
-          <ul>
-            {color.map((c, index) => (
-              <li
-                style={{ backgroundColor: c, width: 30, height: 30 }}
-                key={index}
-              />
-            ))}
-          </ul>
-        </div>
+      <div className={Styles.Cores}>
+        <p>Cores disponíveis</p>
+        <ul>
+          {color.map((c, index) => (
+            <li
+              style={{ backgroundColor: c, width: 30, height: 30 }}
+              key={index}
+            />
+          ))}
+        </ul>
+      </div>
 
-        <div className={Styles.Tamanhos}>
-          <ul>
-            {size.map((t, index) => (
-              <li key={index}>
-                <Miniatura label={t} />
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className={Styles.Tamanhos}>
+        <ul>
+          {size.map((t, index) => (
+            <li key={index}>
+              <Miniatura label={t} />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <Button
-          type="submit"
-          variant="dark"
-          onClick={handleAdicionarAoCarrinho}
-        >
-          <img src={CartIcon} />
-          Adicionar ao carrinho
-        </Button>
+      <Button type="submit" variant="dark" onClick={handleAdicionarAoCarrinho}>
+        <img src={CartIcon} />
+        Adicionar ao carrinho
+      </Button>
 
-        <div className={Styles.Seguranca}>
-          <img src={LockIcon} />
-          <p>Compra segura e protegida.</p>
-        </div>
+      <div className={Styles.Seguranca}>
+        <img src={LockIcon} />
+        <p>Compra segura e protegida.</p>
       </div>
     </section>
   );
